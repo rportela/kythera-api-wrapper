@@ -1,0 +1,16 @@
+✗ AddInClient.get_addin_info() - Missing
+✓ FundsClient.get_funds() - Found
+✗ GlobalsClient.get_globals() - Missing
+✓ InstrumentGroupsClient.get_instrument_groups() - Found
+✓ InstrumentsClient.get_instruments() - Found
+✗ InstrumentsClient.create_instruments() - Missing
+✓ InstrumentParametersClient.get_instrument_parameters() - Found
+✓ IntradayClient.get_intraday_prices() - Found
+✗ IntradayClient.get_intraday_risk_factors() - Missing
+✓ PnlClient.get_intraday_pnl() - Found
+✓ PositionsClient.get_positions() - Found
+✗ PricesClient.get_prices() - Missing
+✓ RiskFactorsClient.get_risk_factors() - Found
+✓ TradesClient.get_trades() - Found
+
+❌ Some methods are missing - please check implementation

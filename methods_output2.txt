@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "c:\github\rportela\kythera-api-wrapper\test_methods.py", line 5, in <module>
+    from kythera_kdx import (
+    ...<4 lines>...
+    )
+  File "c:\github\rportela\kythera-api-wrapper\src\kythera_kdx\__init__.py", line 19, in <module>
+    from .instruments import InstrumentsClient
+ImportError: cannot import name 'InstrumentsClient' from 'kythera_kdx.instruments' (c:\github\rportela\kythera-api-wrapper\src\kythera_kdx\instruments.py)
