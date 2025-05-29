@@ -49,12 +49,11 @@ class MSALAuthenticator:
         self.scopes = scopes or ["https://api.kythera.com/.default"]
         
         # Build authority URL with tenant if provided
-        if tenant_id and tenant_id not in authority:
+        if tenant_id and not tenant_id in authority:
             self.authority = f"https://login.microsoftonline.com/{tenant_id}"
         else:
             self.authority = authority
-        
-        # Token cache
+          # Token cache
         self._cached_token: Optional[str] = None
         self._token_expires_at: Optional[float] = None
         self._app: Optional[Union[ConfidentialClientApplication, PublicClientApplication]] = None
@@ -127,9 +126,7 @@ class MSALAuthenticator:
         
         # Add 5 minute buffer before expiration
         buffer_seconds = 300
-        return time.time() >= (self._token_expires_at - buffer_seconds)
-
-    def _acquire_token_for_confidential_client(self, force_refresh: bool = False) -> str:
+        return time.time() >= (self._token_expires_at - buffer_seconds)    def _acquire_token_for_confidential_client(self, force_refresh: bool = False) -> str:
         """Acquire token using client credentials flow (confidential client)."""
         if not force_refresh and not self._is_token_expired() and self._cached_token:
             return self._cached_token
@@ -137,20 +134,13 @@ class MSALAuthenticator:
         if not self._app:
             raise KytheraAuthError("MSAL application not initialized")
         
-        if not isinstance(self._app, ConfidentialClientApplication):
-            raise KytheraAuthError("Expected ConfidentialClientApplication for confidential client flow")
-        
         try:
             result = self._app.acquire_token_for_client(scopes=self.scopes)
             
             if "access_token" in result:
                 self._cached_token = result["access_token"]
                 # MSAL returns expires_in (seconds from now)
-                expires_in = result.get("expires_in", 3600)
-                if isinstance(expires_in, (int, float)):
-                    self._token_expires_at = time.time() + expires_in
-                else:
-                    self._token_expires_at = time.time() + 3600  # Default 1 hour
+                self._token_expires_at = time.time() + result.get("expires_in", 3600)
                 logger.info("Successfully acquired access token using client credentials")
                 return self._cached_token
             else:
@@ -158,9 +148,7 @@ class MSALAuthenticator:
                 raise KytheraAuthError(f"Failed to acquire token: {error_msg}")
                 
         except Exception as e:
-            raise KytheraAuthError(f"Token acquisition failed: {e}")
-
-    def _acquire_token_for_public_client(self, force_refresh: bool = False) -> str:
+            raise KytheraAuthError(f"Token acquisition failed: {e}")    def _acquire_token_for_public_client(self, force_refresh: bool = False) -> str:
         """Acquire token using device code flow (public client)."""
         if not force_refresh and not self._is_token_expired() and self._cached_token:
             return self._cached_token

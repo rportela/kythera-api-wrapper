@@ -9,6 +9,7 @@ __author__ = "Your Name"
 __email__ = "your.email@example.com"
 
 from .client import KytheraClient
+from .auth import MSALAuthenticator
 from .exceptions import KytheraError, KytheraAPIError, KytheraAuthError
 from .utils import get_api_key_from_env, validate_api_key, format_endpoint
 from .addin import AddInClient
