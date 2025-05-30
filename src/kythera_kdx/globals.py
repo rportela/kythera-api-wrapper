@@ -1,9 +1,9 @@
 from typing import List
-from .client import KytheraClient
+from .authenticated_client import AuthenticatedClient
 from .models_v1 import CalendarDto, CountryDto, CurrencyDto, InstitutionDto, InstitutionTypeDto, IssuerDto
 
 class GlobalsClient:
-    def __init__(self, client: KytheraClient):
+    def __init__(self, client: AuthenticatedClient):
         self._client = client
 
     def get_calendars(self) -> List[CalendarDto]:

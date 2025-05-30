@@ -1,11 +1,11 @@
 from typing import Any
-from .client import KytheraClient
+from .authenticated_client import AuthenticatedClient
 
 
 class PnlClient:
     """Client for PnL (Profit and Loss) related endpoints."""
     
-    def __init__(self, client: KytheraClient):
+    def __init__(self, client: AuthenticatedClient):
         self._client = client
 
     def get_intraday_pnl(self) -> Any:

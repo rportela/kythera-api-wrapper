@@ -1,9 +1,9 @@
 from typing import List
-from .client import KytheraClient
+from .authenticated_client import AuthenticatedClient
 from .models_v1 import InstrumentGroupDto
 
 class InstrumentGroupsClient:
-    def __init__(self, client: KytheraClient):
+    def __init__(self, client: AuthenticatedClient):
         self._client = client
 
     def get_instrument_groups(

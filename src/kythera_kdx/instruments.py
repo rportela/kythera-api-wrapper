@@ -1,12 +1,12 @@
 from typing import Any
 
-from .client import KytheraClient
+from .authenticated_client import AuthenticatedClient
 
 
 class InstrumentsClient:
     """Client for instrument-related endpoints."""
     
-    def __init__(self, client: KytheraClient):
+    def __init__(self, client: AuthenticatedClient):
         self._client = client
 
     def get_instruments(

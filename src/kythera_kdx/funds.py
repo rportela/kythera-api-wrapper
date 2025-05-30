@@ -1,11 +1,11 @@
 from datetime import date
 from typing import List, Optional
 
-from .client import KytheraClient
+from .authenticated_client import AuthenticatedClient
 from .models_v1 import FundDto, FundNavDto
 
 class FundsClient:
-    def __init__(self, client: KytheraClient):
+    def __init__(self, client: AuthenticatedClient):
         self._client = client
 
     def get_funds(

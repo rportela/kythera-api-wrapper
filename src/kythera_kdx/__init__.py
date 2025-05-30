@@ -8,10 +8,9 @@ __version__ = "0.1.0"
 __author__ = "Your Name"
 __email__ = "your.email@example.com"
 
-from .client import KytheraClient
-from .auth import MSALAuthenticator
+from .authenticated_client import AuthenticatedClient
+from .kythera_kdx import KytheraKdx
 from .exceptions import KytheraError, KytheraAPIError, KytheraAuthError
-from .utils import get_api_key_from_env, validate_api_key, format_endpoint
 from .addin import AddInClient
 from .funds import FundsClient
 from .globals import GlobalsClient
@@ -26,22 +25,21 @@ from .positions import PositionsClient
 from .trades import TradesClient
 
 __all__ = [
-    "KytheraClient",
-    "KytheraError", 
+    "AuthenticatedClient",
+    "KytheraError",
     "KytheraAPIError",
     "KytheraAuthError",
-    "get_api_key_from_env",
-    "validate_api_key",
-    "format_endpoint",
     "AddInClient",
     "FundsClient",
     "GlobalsClient",
     "InstrumentGroupsClient",
-    "InstrumentParametersClient",    "InstrumentsClient",
+    "InstrumentParametersClient",
+    "InstrumentsClient",
     "IntradayClient",
     "PnlClient",
     "PricesClient",
     "RiskFactorsClient",
     "PositionsClient",
     "TradesClient",
+    "KytheraKdx",
 ]
