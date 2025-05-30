@@ -8,7 +8,7 @@ version = "0.1.0"
 description = "A Python wrapper for the Kythera API"
 readme = "README.md"
 authors = [
-    {name = "Your Name", email = "your.email@example.com"}
+    {name = "Rodrigo Portela", email = "rodrigo.portela@gmail.com"}
 ]
 license = {file = "LICENSE"}
 classifiers = [
