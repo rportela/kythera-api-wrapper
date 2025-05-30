@@ -7,7 +7,7 @@ parts of the Kythera API according to the OpenAPI specification.
 
 from datetime import date, datetime
 from kythera_kdx import (
-    KytheraClient,
+    AuthenticatedClient,
     AddInClient,
     FundsClient,
     GlobalsClient,
@@ -28,7 +28,7 @@ def main():
     
     # Initialize the main client
     # In production, use: client = KytheraClient(api_key="your-actual-api-key")
-    client = KytheraClient(api_key="demo-key")
+    client = AuthenticatedClient()
     
     print("=== Kythera KDX Client Examples ===\n")
     

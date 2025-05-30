@@ -2,7 +2,6 @@
 Tests for custom exceptions.
 """
 
-import pytest
 from kythera_kdx.exceptions import (
     KytheraError,
     KytheraAPIError,
