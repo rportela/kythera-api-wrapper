@@ -12,6 +12,11 @@ from typing import Optional, Dict, Any, List, Union
 from urllib.parse import urljoin
 import httpx
 from msal import ConfidentialClientApplication, PublicClientApplication
+from msal_extensions import (
+    PersistedTokenCache,
+    FilePersistence,
+    build_encrypted_persistence,
+)
 
 from .exceptions import (
     KytheraAPIError,
@@ -21,6 +26,17 @@ from .exceptions import (
 )
 
 logger = logging.getLogger(__name__)
+
+
+def _get_default_cache_location() -> str:
+    """Get the default cache location based on the operating system."""
+    if os.name == "nt":  # Windows
+        cache_dir = os.path.join(os.path.expanduser("~"), "AppData", "Local", "kythera-kdx")
+    else:  # Unix-like systems
+        cache_dir = os.path.join(os.path.expanduser("~"), ".cache", "kythera-kdx")
+    
+    os.makedirs(cache_dir, exist_ok=True)
+    return os.path.join(cache_dir, "token_cache.bin")
 
 
 class AuthenticatedClient:
@@ -40,6 +56,7 @@ class AuthenticatedClient:
         client_secret: Optional[str] = None,
         timeout: int = 30,
         scopes: Optional[List[str]] = None,
+        cache_location: Optional[str] = None,
     ):
         """
         Initialize the authenticated Kythera client.
@@ -51,6 +68,7 @@ class AuthenticatedClient:
             client_secret: Azure AD application client secret (for service principal auth)
             timeout: Request timeout in seconds
             scopes: List of OAuth scopes to request
+            cache_location: Custom location for token cache (optional)
         """
         # Load configuration from environment if not provided
         self.base_url = (
@@ -72,10 +90,12 @@ class AuthenticatedClient:
         if not self.client_id:
             raise KytheraAuthError(
                 "client_id is required. Provide it as parameter or set AZURE_CLIENT_ID environment variable."
-            )
-
-        # Build authority URL
+            )        # Build authority URL
         self.authority = f"https://login.microsoftonline.com/{self.tenant_id}"
+
+        # Set up token cache
+        self.cache_location = cache_location or _get_default_cache_location()
+        self._token_cache = self._create_token_cache()
 
         # Authentication state
         self._cached_token: Optional[str] = None
@@ -86,11 +106,21 @@ class AuthenticatedClient:
 
         # Initialize HTTP client
         self.session = httpx.Client(timeout=self.timeout)
-        self.session.headers.update({"Content-Type": "application/json"})
-
-        # Initialize MSAL application
+        self.session.headers.update({"Content-Type": "application/json"})        # Initialize MSAL application
         self._initialize_app()
 
+    def _create_token_cache(self) -> PersistedTokenCache:
+        """Create a persisted token cache."""
+        try:
+            # Try to use encrypted persistence if available
+            persistence = build_encrypted_persistence(self.cache_location)
+        except Exception as e:
+            logger.warning(f"Failed to create encrypted persistence, falling back to file: {e}")
+            # Fall back to file persistence
+            persistence = FilePersistence(self.cache_location)
+        
+        return PersistedTokenCache(persistence)    
+    
     def _initialize_app(self) -> None:
         """Initialize the MSAL application (confidential or public client)."""
         try:
@@ -100,17 +130,19 @@ class AuthenticatedClient:
                     client_id=self.client_id,
                     client_credential=self.client_secret,
                     authority=self.authority,
+                    token_cache=self._token_cache,
                 )
                 logger.info(
-                    "Initialized MSAL ConfidentialClientApplication for service principal"
+                    "Initialized MSAL ConfidentialClientApplication for service principal with token cache"
                 )
             else:
                 # Public client application (device flow)
                 self._app = PublicClientApplication(
                     client_id=self.client_id,
                     authority=self.authority,
+                    token_cache=self._token_cache,
                 )
-                logger.info("Initialized MSAL PublicClientApplication for device flow")
+                logger.info("Initialized MSAL PublicClientApplication for device flow with token cache")
         except Exception as e:
             raise KytheraAuthError(f"Failed to initialize MSAL application: {e}")
 
