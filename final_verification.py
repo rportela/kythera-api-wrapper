@@ -1,18 +1,31 @@
 """
 Final verification of the Kythera KDX client structure.
 """
+
 import sys
 import os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
+
+from kythera_kdx.authenticated_client import AuthenticatedClient
+
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
 # Test that all imports work
 try:
     from kythera_kdx import (
-        KytheraClient, AddInClient, FundsClient, GlobalsClient,
-        InstrumentGroupsClient, InstrumentsClient, InstrumentParametersClient,
-        IntradayClient, PnlClient, PositionsClient, PricesClient,
-        RiskFactorsClient, TradesClient
+        AddInClient,
+        FundsClient,
+        GlobalsClient,
+        InstrumentGroupsClient,
+        InstrumentsClient,
+        InstrumentParametersClient,
+        IntradayClient,
+        PnlClient,
+        PositionsClient,
+        PricesClient,
+        RiskFactorsClient,
+        TradesClient,
     )
+
     print("✓ All 13 client classes imported successfully")
 except ImportError as e:
     print(f"✗ Import error: {e}")
@@ -20,8 +33,8 @@ except ImportError as e:
 
 # Test basic instantiation
 try:
-    main_client = KytheraClient(api_key="test-key")
-    
+    main_client = AuthenticatedClient()
+
     # Instantiate all clients
     clients = [
         AddInClient(main_client),
@@ -37,9 +50,9 @@ try:
         RiskFactorsClient(main_client),
         TradesClient(main_client),
     ]
-    
+
     print(f"✓ All {len(clients)} client instances created successfully")
-    
+
 except Exception as e:
     print(f"✗ Instantiation error: {e}")
     exit(1)
