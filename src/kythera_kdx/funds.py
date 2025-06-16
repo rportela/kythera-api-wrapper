@@ -182,7 +182,7 @@ class FundsClient:
         GET /v1/fund-families/relations
         Fetches all fund family <-> funds relations maps (raw JSON).
         """
-        response = self._client.get("/v1/fund-families/relations")
+        response = self._client.get("/v1/fund-families-relations")
         return response.json()
 
     def get_fund_family_relations(self) -> List[FundFamilyRelationDto]:
