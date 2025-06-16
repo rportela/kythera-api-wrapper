@@ -306,6 +306,60 @@ class OverrideRiskFactorValueRequest(BaseModel):
     riskFactorPoint: RiskFactorPoint = Field(..., description="The points to override with.")
 
 
+class FundCounterpartyMarginDto(BaseModel):
+    id: Optional[int] = Field(None)
+    sessionDate: str
+    notificationDate: str
+    coveringDate: str
+    fundId: Optional[int] = Field(None)
+    fundName: str
+    counterpartyId: Optional[int] = Field(None)
+    counterpartyName: str
+    marginTypeId: Optional[int] = Field(None)
+    marginTypeName: str
+    currencyId: Optional[int] = Field(None)
+    currencyCode: str
+
+
+class FundRiskMeasureDto(BaseModel):
+    id: Optional[int] = Field(None)
+    effectiveDate: Optional[str] = Field(None)
+    fundId: Optional[int] = Field(None)
+    fundName: str
+    portfolioId: Optional[int] = Field(None)
+    portfolioName: str
+    riskMetricId: Optional[int] = Field(None)
+    riskMetricName: str
+    measureValue: Optional[float] = Field(None)
+
+
+class FundFamilyDto(BaseModel):
+    id: Optional[int] = Field(None)
+    name: str
+    description: str
+    baseCurrencyId: Optional[int] = Field(None)
+    baseCurrencyCode: str
+    riskViewCurrencyId: Optional[int] = Field(None)
+    riskViewCurrencyCode: str
+
+
+class FundFamilyRelationDto(BaseModel):
+    id: Optional[int] = Field(None)
+    fundFamilyId: Optional[int] = Field(None)
+    fundId: Optional[int] = Field(None)
+    fundName: str
+    navMultiplier: Optional[float] = Field(None)
+    riskMultiplier: Optional[float] = Field(None)
+
+
+class PortfolioDto(BaseModel):
+    id: Optional[int] = Field(None)
+    parentPortfolioId: Optional[int] = Field(None)
+    name: str
+    description: str
+    characteristics: Optional[Dict[str, str]] = Field(None)
+
+
 # Update model references for forward references
 InstrumentDto.model_rebuild()
 

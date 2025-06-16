@@ -30,44 +30,24 @@
         ]
       }
     },
-    "/v1/fund-counterparty-margins": {
+    "/add-in/core": {
       "get": {
         "tags": [
-          "Funds"
+          "AddIn"
         ],
-        "summary": "Get All Fund Counterparty Margins",
-        "description": "Retrieves all fund counterparty margins for a specified session date.",
         "parameters": [
           {
-            "name": "session-date",
+            "name": "version",
             "in": "query",
             "required": true,
             "schema": {
-              "type": "string",
-              "format": "date"
+              "type": "string"
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/FundCounterpartyMarginDto"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/FundCounterpartyMarginDto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/FundCounterpartyMarginDto"
-                }
-              }
-            }
+            "description": "OK"
           }
         },
         "security": [
@@ -79,119 +59,14 @@
         ]
       }
     },
-    "/v1/fund-families": {
+    "/add-in/version": {
       "get": {
         "tags": [
-          "Fund Families"
-        ],
-        "summary": "Get All Fund Families",
-        "description": "Fetches all available fund families.",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/FundFamilyDto"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/FundFamilyDto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/FundFamilyDto"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "oauth2": [
-              "ffac81db-8b9f-4747-8a3e-526e1e9c9d68"
-            ]
-          }
-        ]
-      }
-    },
-    "/v1/fund-families-relations": {
-      "get": {
-        "tags": [
-          "Fund Families"
-        ],
-        "summary": "Get All Fund Families Relations",
-        "description": "Fetches all fund family <-> funds relations maps.",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/FundFamilyRelationDto"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/FundFamilyRelationDto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/FundFamilyRelationDto"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "oauth2": [
-              "ffac81db-8b9f-4747-8a3e-526e1e9c9d68"
-            ]
-          }
-        ]
-      }
-    },
-    "/v1/fund-risk-measures": {
-      "get": {
-        "tags": [
-          "Funds"
-        ],
-        "summary": "Get All Fund Risk Measures",
-        "description": "Fetches all available risk measures for funds on a specified effective date.",
-        "parameters": [
-          {
-            "name": "effective-date",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "format": "date"
-            }
-          }
+          "AddIn"
         ],
         "responses": {
           "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/FundRiskMeasureDto"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/FundRiskMeasureDto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/FundRiskMeasureDto"
-                }
-              }
-            }
+            "description": "OK"
           }
         },
         "security": [
@@ -266,7 +141,7 @@
         "tags": [
           "Funds"
         ],
-        "summary": "Get All Fund NAVs",
+        "summary": "Get All Fund NAVs ",
         "description": "Fetches all available fund NAV entries for a given date or period.",
         "parameters": [
           {
@@ -498,6 +373,45 @@
         ]
       }
     },
+    "/v1/globals/issuers": {
+      "get": {
+        "tags": [
+          "Globals"
+        ],
+        "summary": "Get All Issuers",
+        "description": "Fetches all available issuers.",
+        "parameters": [
+          {
+            "name": "fetchCharacteristics",
+            "in": "query",
+            "description": "Returns characteristics for all issuers.",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IssuerDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "ffac81db-8b9f-4747-8a3e-526e1e9c9d68"
+            ]
+          }
+        ]
+      }
+    },
     "/v1/instrument-groups": {
       "get": {
         "tags": [
@@ -565,7 +479,7 @@
         "description": "Fetches all available instruments.",
         "parameters": [
           {
-            "name": "enabled-only",
+            "name": "enabledOnly",
             "in": "query",
             "description": "Returns only instruments that are currently enabled.",
             "schema": {
@@ -574,7 +488,7 @@
             }
           },
           {
-            "name": "fetch-characteristics",
+            "name": "fetchCharacteristics",
             "in": "query",
             "description": "Fetches all characteristics for each instrument.",
             "schema": {
@@ -583,56 +497,12 @@
             }
           },
           {
-            "name": "fetch-group",
+            "name": "fetchGroup",
             "in": "query",
-            "description": "Fetches all instrument groups and their characteristics.When combined with fetchCharacteristics, applies hierarchical resolution to characteristics.",
+            "description": "Fetches all instrument groups and their characteristics. When combined with fetchCharacteristics, applies hierarchical resolution to characteristics.",
             "schema": {
               "type": "boolean",
               "default": true
-            }
-          },
-          {
-            "name": "fetch-baskets",
-            "in": "query",
-            "description": "Fetches all baskets associated with the instruments. Default false.",
-            "schema": {
-              "type": "boolean",
-              "default": false
-            }
-          },
-          {
-            "name": "fetch-issuers",
-            "in": "query",
-            "description": "Fetches all issuers associated with the instruments. Default false.",
-            "schema": {
-              "type": "boolean",
-              "default": false
-            }
-          },
-          {
-            "name": "fetch-cash-flows",
-            "in": "query",
-            "description": "Fetches all cash flows associated with the instruments. Default false.",
-            "schema": {
-              "type": "boolean",
-              "default": false
-            }
-          },
-          {
-            "name": "fetch-nomenclatures",
-            "in": "query",
-            "description": "Fetches all nomenclatures associated with the instruments. Default false.",
-            "schema": {
-              "type": "boolean",
-              "default": false
-            }
-          },
-          {
-            "name": "separate-group-characteristics-property",
-            "in": "query",
-            "schema": {
-              "type": "boolean",
-              "default": false
             }
           }
         ],
@@ -781,73 +651,6 @@
         ]
       }
     },
-    "/v1/issuers": {
-      "get": {
-        "tags": [
-          "Issuers"
-        ],
-        "summary": "Get All Issuers",
-        "description": "Fetches all available issuers.",
-        "parameters": [
-          {
-            "name": "fetchCharacteristics",
-            "in": "query",
-            "description": "Returns characteristics for all issuers.",
-            "schema": {
-              "type": "boolean",
-              "default": false
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/IssuerDto"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "oauth2": [
-              "ffac81db-8b9f-4747-8a3e-526e1e9c9d68"
-            ]
-          }
-        ]
-      }
-    },
-    "/v1/issuers/parameters": {
-      "get": {
-        "tags": [
-          "Issuers"
-        ],
-        "summary": "Get All Issuers Parameters",
-        "description": "Fetches all available issuer parameters.",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/IssuerDto"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "oauth2": [
-              "ffac81db-8b9f-4747-8a3e-526e1e9c9d68"
-            ]
-          }
-        ]
-      }
-    },
     "/v1/pnl/intraday": {
       "get": {
         "tags": [
@@ -881,115 +684,6 @@
                   "items": {
                     "$ref": "#/components/schemas/IntradayPnlEntryDto"
                   }
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "oauth2": [
-              "ffac81db-8b9f-4747-8a3e-526e1e9c9d68"
-            ]
-          }
-        ]
-      }
-    },
-    "/v1/pnl/explain": {
-      "get": {
-        "tags": [
-          "PnL"
-        ],
-        "summary": "Get PnL Explain Data",
-        "description": "Retrieves detailed PnL explain entries for a specified date range, fund family, and set of discriminators.",
-        "parameters": [
-          {
-            "name": "start-date",
-            "in": "query",
-            "description": "The inclusive start date for the PnL explain data range.",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "date"
-            }
-          },
-          {
-            "name": "end-date",
-            "in": "query",
-            "description": "The inclusive end date for the PnL explain data range.",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "date"
-            }
-          },
-          {
-            "name": "fund-family",
-            "in": "query",
-            "description": "The fund family identifier to filter the PnL explain data.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "discriminator",
-            "in": "query",
-            "description": "A list of property names to group or filter the PnL explain data by. At least one property name is required.",
-            "required": true,
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "array"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "array"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "array"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "oauth2": [
-              "ffac81db-8b9f-4747-8a3e-526e1e9c9d68"
-            ]
-          }
-        ]
-      }
-    },
-    "/v1/portfolios": {
-      "get": {
-        "tags": [
-          "Portfolios"
-        ],
-        "summary": "Get All Portfolios",
-        "description": "Fetches all available portfolios.",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PortfolioDto"
                 }
               }
             }
@@ -1597,64 +1291,6 @@
         },
         "nullable": true
       },
-      "FundCounterpartyMarginDto": {
-        "required": [
-          "sessionDate",
-          "notificationDate",
-          "coveringDate",
-          "fundName",
-          "counterpartyName",
-          "marginTypeName",
-          "currencyCode"
-        ],
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "sessionDate": {
-            "type": "string",
-            "format": "date"
-          },
-          "notificationDate": {
-            "type": "string",
-            "format": "date"
-          },
-          "coveringDate": {
-            "type": "string",
-            "format": "date"
-          },
-          "fundId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "fundName": {
-            "type": "string"
-          },
-          "counterpartyId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "counterpartyName": {
-            "type": "string"
-          },
-          "marginTypeId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "marginTypeName": {
-            "type": "string"
-          },
-          "currencyId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "currencyCode": {
-            "type": "string"
-          }
-        }
-      },
       "FundDto": {
         "type": "object",
         "properties": {
@@ -1686,72 +1322,6 @@
           }
         }
       },
-      "FundFamilyDto": {
-        "required": [
-          "name",
-          "description",
-          "baseCurrencyCode",
-          "riskViewCurrencyCode"
-        ],
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "name": {
-            "type": "string"
-          },
-          "description": {
-            "type": "string"
-          },
-          "baseCurrencyId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "baseCurrencyCode": {
-            "type": "string"
-          },
-          "riskViewCurrencyId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "riskViewCurrencyCode": {
-            "type": "string"
-          }
-        }
-      },
-      "FundFamilyRelationDto": {
-        "required": [
-          "fundName"
-        ],
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "fundFamilyId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "fundId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "fundName": {
-            "type": "string"
-          },
-          "navMultiplier": {
-            "type": "number",
-            "format": "double"
-          },
-          "riskMultiplier": {
-            "type": "number",
-            "format": "double"
-          }
-        }
-      },
       "FundNavDto": {
         "type": "object",
         "properties": {
@@ -1778,49 +1348,6 @@
             "format": "date"
           },
           "value": {
-            "type": "number",
-            "format": "double"
-          }
-        }
-      },
-      "FundRiskMeasureDto": {
-        "required": [
-          "fundName",
-          "portfolioName",
-          "riskMetricName"
-        ],
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "effectiveDate": {
-            "type": "string",
-            "format": "date"
-          },
-          "fundId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "fundName": {
-            "type": "string"
-          },
-          "portfolioId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "portfolioName": {
-            "type": "string"
-          },
-          "riskMetricId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "riskMetricName": {
-            "type": "string"
-          },
-          "measureValue": {
             "type": "number",
             "format": "double"
           }
@@ -1879,88 +1406,6 @@
           }
         }
       },
-      "InstrumentBasketUnderlyingDto": {
-        "required": [
-          "underlyingInstrumentGroup",
-          "underlyingInstrument"
-        ],
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "underlyingId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "underlyingInstrumentGroup": {
-            "type": "string"
-          },
-          "underlyingInstrument": {
-            "type": "string"
-          },
-          "entryDate": {
-            "type": "string",
-            "format": "date"
-          },
-          "settlementDate": {
-            "type": "string",
-            "format": "date"
-          },
-          "quantity": {
-            "type": "number",
-            "format": "double"
-          },
-          "price": {
-            "type": "number",
-            "format": "double"
-          },
-          "tradeFee": {
-            "type": "number",
-            "format": "double"
-          },
-          "fundingSpread": {
-            "type": "number",
-            "format": "double"
-          }
-        }
-      },
-      "InstrumentCashFlowDto": {
-        "required": [
-          "cashFlowType"
-        ],
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "cashFlowTypeId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "cashFlowType": {
-            "type": "string"
-          },
-          "fixingDate": {
-            "type": "string",
-            "format": "date"
-          },
-          "endAccrualDate": {
-            "type": "string",
-            "format": "date"
-          },
-          "settleDate": {
-            "type": "string",
-            "format": "date"
-          },
-          "fixingPmtFactor": {
-            "type": "number",
-            "format": "double"
-          }
-        }
-      },
       "InstrumentDto": {
         "required": [
           "name",
@@ -1989,41 +1434,6 @@
             "type": "object",
             "additionalProperties": {
               "type": "string"
-            },
-            "nullable": true
-          },
-          "groupCharacteristics": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "string"
-            },
-            "nullable": true
-          },
-          "issuers": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/InstrumentIssuerDto"
-            },
-            "nullable": true
-          },
-          "baskets": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/InstrumentBasketUnderlyingDto"
-            },
-            "nullable": true
-          },
-          "cashFlows": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/InstrumentCashFlowDto"
-            },
-            "nullable": true
-          },
-          "nomenclatures": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/InstrumentNomenclatureDto"
             },
             "nullable": true
           }
@@ -2081,71 +1491,6 @@
           }
         },
         "nullable": true
-      },
-      "InstrumentIssuerDto": {
-        "required": [
-          "name",
-          "description",
-          "tinNumber",
-          "country"
-        ],
-        "type": "object",
-        "properties": {
-          "issuerId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "name": {
-            "type": "string"
-          },
-          "description": {
-            "type": "string"
-          },
-          "tinNumber": {
-            "type": "string"
-          },
-          "countryId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "country": {
-            "type": "string"
-          },
-          "characteristics": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "string"
-            },
-            "nullable": true
-          }
-        }
-      },
-      "InstrumentNomenclatureDto": {
-        "required": [
-          "counterparty",
-          "application",
-          "namingParameter",
-          "definition"
-        ],
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "counterparty": {
-            "type": "string"
-          },
-          "application": {
-            "type": "string"
-          },
-          "namingParameter": {
-            "type": "string"
-          },
-          "definition": {
-            "type": "string"
-          }
-        }
       },
       "InstrumentParameterDto": {
         "required": [
@@ -2321,6 +1666,36 @@
             "type": "number",
             "format": "double"
           },
+          "riskFactorMain": {
+            "type": "string"
+          },
+          "riskFactorMainType": {
+            "type": "string"
+          },
+          "riskFactorSecondary": {
+            "type": "string"
+          },
+          "riskFactorSecondaryType": {
+            "type": "string"
+          },
+          "riskFactorFixing": {
+            "type": "string"
+          },
+          "riskFactorFixingType": {
+            "type": "string"
+          },
+          "riskFactorCashMain": {
+            "type": "string"
+          },
+          "riskFactorCashMainType": {
+            "type": "string"
+          },
+          "riskFactorCashSecondary": {
+            "type": "string"
+          },
+          "riskFactorCashSecondaryType": {
+            "type": "string"
+          },
           "settleDate": {
             "type": "string",
             "format": "date"
@@ -2353,17 +1728,32 @@
           "mesaName": {
             "type": "string"
           },
+          "hasPnlProblem": {
+            "type": "boolean"
+          },
+          "hasRiskProblem": {
+            "type": "boolean"
+          },
+          "hasAnyProblem": {
+            "type": "boolean"
+          },
           "problemMessage": {
             "type": "string"
           },
           "fxClose": {
             "type": "number",
             "format": "double"
+          },
+          "baseCurrency": {
+            "type": "string"
+          },
+          "fxConsolidatedInstrument": {
+            "type": "string"
           }
         }
       },
-      "IntradayPriceDto": {},
-      "IntradayRiskFactorValueDto": {},
+      "IntradayPriceDto": { },
+      "IntradayRiskFactorValueDto": { },
       "IssuerDto": {
         "required": [
           "name",
@@ -2466,36 +1856,6 @@
           },
           "riskFactorPoint": {
             "$ref": "#/components/schemas/RiskFactorPoint"
-          }
-        }
-      },
-      "PortfolioDto": {
-        "required": [
-          "name",
-          "description"
-        ],
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "parentPortfolioId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "name": {
-            "type": "string"
-          },
-          "description": {
-            "type": "string"
-          },
-          "characteristics": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "string"
-            },
-            "nullable": true
           }
         }
       },
@@ -2899,9 +2259,6 @@
       "name": "Funds"
     },
     {
-      "name": "Fund Families"
-    },
-    {
       "name": "Globals"
     },
     {
@@ -2914,13 +2271,7 @@
       "name": "Risk Factors"
     },
     {
-      "name": "Issuers"
-    },
-    {
       "name": "PnL"
-    },
-    {
-      "name": "Portfolios"
     },
     {
       "name": "Positions"

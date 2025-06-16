@@ -20,6 +20,7 @@ from .positions import PositionsClient
 from .prices import PricesClient
 from .risk_factors import RiskFactorsClient
 from .trades import TradesClient
+from .portfolios import PortfoliosClient
 
 
 class KytheraKdx(AuthenticatedClient):
@@ -93,6 +94,7 @@ class KytheraKdx(AuthenticatedClient):
         self._prices_client: Optional[PricesClient] = None
         self._risk_factors_client: Optional[RiskFactorsClient] = None
         self._trades_client: Optional[TradesClient] = None
+        self._portfolios_client: Optional[PortfoliosClient] = None
 
     @property
     def addin(self) -> AddInClient:
@@ -177,3 +179,10 @@ class KytheraKdx(AuthenticatedClient):
         if self._trades_client is None:
             self._trades_client = TradesClient(self)
         return self._trades_client
+
+    @property
+    def portfolios(self) -> PortfoliosClient:
+        """Access to Portfolios endpoints."""
+        if self._portfolios_client is None:
+            self._portfolios_client = PortfoliosClient(self)
+        return self._portfolios_client

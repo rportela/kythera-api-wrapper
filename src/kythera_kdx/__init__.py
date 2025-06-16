@@ -23,6 +23,7 @@ from .prices import PricesClient
 from .risk_factors import RiskFactorsClient
 from .positions import PositionsClient
 from .trades import TradesClient
+from .portfolios import PortfoliosClient
 
 __all__ = [
     "AuthenticatedClient",
@@ -42,4 +43,5 @@ __all__ = [
     "PositionsClient",
     "TradesClient",
     "KytheraKdx",
+    "PortfoliosClient",
 ]
