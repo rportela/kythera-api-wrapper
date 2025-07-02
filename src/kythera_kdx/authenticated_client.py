@@ -31,10 +31,12 @@ logger = logging.getLogger(__name__)
 def _get_default_cache_location() -> str:
     """Get the default cache location based on the operating system."""
     if os.name == "nt":  # Windows
-        cache_dir = os.path.join(os.path.expanduser("~"), "AppData", "Local", "kythera-kdx")
+        cache_dir = os.path.join(
+            os.path.expanduser("~"), "AppData", "Local", "kythera-kdx"
+        )
     else:  # Unix-like systems
         cache_dir = os.path.join(os.path.expanduser("~"), ".cache", "kythera-kdx")
-    
+
     os.makedirs(cache_dir, exist_ok=True)
     return os.path.join(cache_dir, "token_cache.bin")
 
@@ -57,6 +59,7 @@ class AuthenticatedClient:
         timeout: int = 30,
         scopes: Optional[List[str]] = None,
         cache_location: Optional[str] = None,
+        x_api_key: Optional[str] = None,
     ):
         """
         Initialize the authenticated Kythera client.
@@ -90,7 +93,7 @@ class AuthenticatedClient:
         if not self.client_id:
             raise KytheraAuthError(
                 "client_id is required. Provide it as parameter or set AZURE_CLIENT_ID environment variable."
-            )        # Build authority URL
+            )  # Build authority URL
         self.authority = f"https://login.microsoftonline.com/{self.tenant_id}"
 
         # Set up token cache
@@ -106,7 +109,10 @@ class AuthenticatedClient:
 
         # Initialize HTTP client
         self.session = httpx.Client(timeout=self.timeout)
-        self.session.headers.update({"Content-Type": "application/json"})        # Initialize MSAL application
+        self.session.headers.update(
+            {"Content-Type": "application/json"}
+        )  # Initialize MSAL application
+        self.x_api_key = x_api_key or os.getenv("KYTHERA_X_API_KEY")
         self._initialize_app()
 
     def _create_token_cache(self) -> PersistedTokenCache:
@@ -115,12 +121,14 @@ class AuthenticatedClient:
             # Try to use encrypted persistence if available
             persistence = build_encrypted_persistence(self.cache_location)
         except Exception as e:
-            logger.warning(f"Failed to create encrypted persistence, falling back to file: {e}")
+            logger.warning(
+                f"Failed to create encrypted persistence, falling back to file: {e}"
+            )
             # Fall back to file persistence
             persistence = FilePersistence(self.cache_location)
-        
-        return PersistedTokenCache(persistence)    
-    
+
+        return PersistedTokenCache(persistence)
+
     def _initialize_app(self) -> None:
         """Initialize the MSAL application (confidential or public client)."""
         try:
@@ -142,7 +150,9 @@ class AuthenticatedClient:
                     authority=self.authority,
                     token_cache=self._token_cache,
                 )
-                logger.info("Initialized MSAL PublicClientApplication for device flow with token cache")
+                logger.info(
+                    "Initialized MSAL PublicClientApplication for device flow with token cache"
+                )
         except Exception as e:
             raise KytheraAuthError(f"Failed to initialize MSAL application: {e}")
 
@@ -284,7 +294,12 @@ class AuthenticatedClient:
         """Ensure we have a valid access token and update the session headers."""
         try:
             access_token = self._get_access_token(force_refresh)
-            self.session.headers.update({"Authorization": f"Bearer {access_token}"})
+            self.session.headers.update(
+                {
+                    "Authorization": f"Bearer {access_token}",
+                    "X-Api-Key": self.x_api_key or "",
+                }
+            )
         except Exception as e:
             raise KytheraAuthError(f"Failed to authenticate: {e}")
 

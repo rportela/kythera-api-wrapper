@@ -26,11 +26,11 @@ from .portfolios import PortfoliosClient
 class KytheraKdx(AuthenticatedClient):
     """
     Unified Kythera API client with convenient access to all API modules.
-    
+
     This class inherits from AuthenticatedClient and provides properties for accessing
     all specialized client modules. It supports both service principal authentication
     (with client_secret) and interactive device flow authentication (without client_secret).
-    
+
     Example usage:
         # Service principal authentication
         kdx = KytheraKdx(
@@ -38,16 +38,16 @@ class KytheraKdx(AuthenticatedClient):
             client_secret="your-client-secret",
             tenant_id="your-tenant-id"
         )
-        
+
         # Interactive device flow authentication
         kdx = KytheraKdx(client_id="your-client-id")
-        
+
         # Access positions
         positions = kdx.positions.get_positions()
-        
+
         # Access funds
         funds = kdx.funds.get_funds()
-        
+
         # Access prices
         prices = kdx.prices.get_all_prices(price_date=date.today(), price_type_name="CLOSE")
     """
@@ -60,6 +60,7 @@ class KytheraKdx(AuthenticatedClient):
         client_secret: Optional[str] = None,
         timeout: int = 30,
         scopes: Optional[List[str]] = None,
+        x_api_key: Optional[str] = None,
     ):
         """
         Initialize the unified Kythera client.
@@ -79,8 +80,9 @@ class KytheraKdx(AuthenticatedClient):
             client_secret=client_secret,
             timeout=timeout,
             scopes=scopes,
+            x_api_key=x_api_key,
         )
-        
+
         # Initialize all client modules lazily
         self._addin_client: Optional[AddInClient] = None
         self._funds_client: Optional[FundsClient] = None
