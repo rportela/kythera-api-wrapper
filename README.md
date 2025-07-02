@@ -16,9 +16,10 @@ from datetime import date
 
 # Initialize the unified client
 kdx = KytheraKdx(
-    client_id="your-client-id",
-    client_secret="your-client-secret",  # Optional - for service principal auth
-    tenant_id="your-tenant-id"
+    x_api_key="xxxx-xxxx-xxxx",  # <-- API key authentication
+    client_id="your-client-id",  # Optional - for OAuth2
+    client_secret="your-client-secret",  # Optional
+    tenant_id="your-tenant-id"    # Optional
 )
 
 # Get fund information
@@ -74,6 +75,14 @@ kdx = KytheraKdx(
 )
 ```
 
+### API Key Authentication (Simple)
+
+```python
+from kythera_kdx import KytheraKdx
+
+kdx = KytheraKdx(x_api_key="xxxx-xxxx-xxxx")
+```
+
 ## Configuration
 
 ### Environment Variables
@@ -84,6 +93,7 @@ You can set your authentication credentials using environment variables:
 export KYTHERA_CLIENT_ID="your-client-id"
 export KYTHERA_CLIENT_SECRET="your-client-secret"
 export KYTHERA_TENANT_ID="your-tenant-id"
+export KYTHERA_X_API_KEY="xxxx-xxxx-xxxx"
 ```
 
 ### Client Configuration
@@ -106,6 +116,11 @@ kdx = KytheraKdx(
     tenant_id="your-tenant-id"
     # No client_secret for device flow
 )
+
+# API key authentication (simple)
+kdx = KytheraKdx(
+    x_api_key="xxxx-xxxx-xxxx"
+)
 ```
 
 ## Usage Examples
@@ -119,6 +134,7 @@ import pandas as pd
 
 # Initialize the unified client
 kdx = KytheraKdx(
+    x_api_key="xxxx-xxxx-xxxx",  # <-- API key authentication
     client_id="your-client-id",
     client_secret="your-client-secret", 
     tenant_id="your-tenant-id"
@@ -166,7 +182,7 @@ for _, row in top_performers.iterrows():
 from kythera_kdx import KytheraKdx
 from datetime import date
 
-kdx = KytheraKdx(client_id="your-client-id", client_secret="your-client-secret", tenant_id="your-tenant-id")
+kdx = KytheraKdx(x_api_key="xxxx-xxxx-xxxx", client_id="your-client-id", client_secret="your-client-secret", tenant_id="your-tenant-id")
 
 # Get all enabled funds with characteristics
 funds = kdx.funds.get_funds(enabled_only=True, fetch_characteristics=True)
@@ -189,7 +205,7 @@ print(f"Total funds: {len(funds_df)}")
 from kythera_kdx import KytheraKdx
 from datetime import date
 
-kdx = KytheraKdx(client_id="your-client-id", client_secret="your-client-secret", tenant_id="your-tenant-id")
+kdx = KytheraKdx(x_api_key="xxxx-xxxx-xxxx", client_id="your-client-id", client_secret="your-client-secret", tenant_id="your-tenant-id")
 
 # Get current open positions
 positions = kdx.positions.get_positions(is_open=True)
@@ -213,7 +229,7 @@ print(f"Total open positions: {len(positions_df)}")
 from kythera_kdx import KytheraKdx
 from datetime import date
 
-kdx = KytheraKdx(client_id="your-client-id", client_secret="your-client-secret", tenant_id="your-tenant-id")
+kdx = KytheraKdx(x_api_key="xxxx-xxxx-xxxx", client_id="your-client-id", client_secret="your-client-secret", tenant_id="your-tenant-id")
 
 # Get trades for today
 trades = kdx.trades.get_trades(effective_date=date.today())
@@ -232,7 +248,7 @@ print(f"Total trading volume: {total_volume:.2f}")
 from kythera_kdx import KytheraKdx
 from datetime import date
 
-kdx = KytheraKdx(client_id="your-client-id", client_secret="your-client-secret", tenant_id="your-tenant-id")
+kdx = KytheraKdx(x_api_key="xxxx-xxxx-xxxx", client_id="your-client-id", client_secret="your-client-secret", tenant_id="your-tenant-id")
 
 # Get pricing data for today
 prices = kdx.prices.get_all_prices(
@@ -259,7 +275,7 @@ print(f"Current market prices for {len(intraday_prices)} instruments")
 ```python
 from kythera_kdx import KytheraKdx
 
-kdx = KytheraKdx(client_id="your-client-id", client_secret="your-client-secret", tenant_id="your-tenant-id")
+kdx = KytheraKdx(x_api_key="xxxx-xxxx-xxxx", client_id="your-client-id", client_secret="your-client-secret", tenant_id="your-tenant-id")
 
 # Get current intraday P&L as pandas DataFrame
 intraday_pnl_df = kdx.pnl.get_intraday_pnl_df()
@@ -281,7 +297,7 @@ print(pnl_by_fund)
 ```python
 from kythera_kdx import KytheraKdx, KytheraAPIError, KytheraAuthError
 
-kdx = KytheraKdx(client_id="your-client-id", client_secret="your-client-secret", tenant_id="your-tenant-id")
+kdx = KytheraKdx(x_api_key="xxxx-xxxx-xxxx", client_id="your-client-id", client_secret="your-client-secret", tenant_id="your-tenant-id")
 
 try:
     funds = kdx.funds.get_funds()
@@ -323,7 +339,7 @@ The `KytheraKdx` unified client provides access to specialized modules through p
 ```python
 from kythera_kdx import KytheraKdx
 
-kdx = KytheraKdx(client_id="your-client-id", client_secret="your-client-secret", tenant_id="your-tenant-id")
+kdx = KytheraKdx(x_api_key="xxxx-xxxx-xxxx", client_id="your-client-id", client_secret="your-client-secret", tenant_id="your-tenant-id")
 
 # All modules are accessible directly from the unified client
 funds = kdx.funds.get_funds()
@@ -341,7 +357,7 @@ The library includes comprehensive data models with full type hints:
 from kythera_kdx import KytheraKdx
 from kythera_kdx.models_v1 import FundDto, PositionDto, TradeDto, PriceDto
 
-kdx = KytheraKdx(client_id="your-client-id", client_secret="your-client-secret", tenant_id="your-tenant-id")
+kdx = KytheraKdx(x_api_key="xxxx-xxxx-xxxx", client_id="your-client-id", client_secret="your-client-secret", tenant_id="your-tenant-id")
 
 # All responses are automatically parsed into typed objects
 funds = kdx.funds.get_funds()
@@ -476,7 +492,7 @@ The `KytheraKdx` unified client provides several advantages:
 ### Before (Multiple Clients)
 ```python
 # Old approach - multiple client instances
-client = KytheraClient(api_key="key")
+client = KytheraClient(x_api_key="xxxx-xxxx-xxxx")
 funds_client = FundsClient(client)
 positions_client = PositionsClient(client)
 pnl_client = PnlClient(client)
@@ -489,7 +505,7 @@ pnl = pnl_client.get_intraday_pnl()
 ### After (Unified Client)
 ```python
 # New approach - single unified client
-kdx = KytheraKdx(client_id="id", client_secret="secret", tenant_id="tenant")
+kdx = KytheraKdx(x_api_key="xxxx-xxxx-xxxx")
 
 funds = kdx.funds.get_funds()
 positions = kdx.positions.get_positions()
