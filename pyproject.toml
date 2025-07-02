@@ -4,13 +4,13 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "kythera-kdx"
-version = "0.2.2"
+version = "0.2.3"
 description = "A Python wrapper for the Kythera API"
 readme = "README.md"
 authors = [
     {name = "Rodrigo Portela", email = "rodrigo.portela@gmail.com"}
 ]
-license = "MIT"
+license = { text = "MIT" }
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers",
