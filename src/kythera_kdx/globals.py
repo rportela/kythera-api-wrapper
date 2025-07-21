@@ -169,3 +169,27 @@ class GlobalsClient:
         """
         data = self.get_issuers_raw(fetch_characteristics)
         return pd.DataFrame(data)
+
+    def get_issuer_parameters_raw(self) -> List[Dict[str, Any]]:
+        """
+        GET /v1/issuers/parameters
+        Fetches all available issuer parameters and returns raw JSON data.
+        """
+        response = self._client.get("/v1/issuers/parameters")
+        return response.json()
+
+    def get_issuer_parameters(self) -> List[IssuerDto]:
+        """
+        GET /v1/issuers/parameters
+        Fetches all available issuer parameters and returns typed models.
+        """
+        data = self.get_issuer_parameters_raw()
+        return [IssuerDto(**item) for item in data]
+
+    def get_issuer_parameters_df(self) -> pd.DataFrame:
+        """
+        GET /v1/issuers/parameters
+        Fetches all available issuer parameters and returns a pandas DataFrame.
+        """
+        data = self.get_issuer_parameters_raw()
+        return pd.DataFrame(data)
