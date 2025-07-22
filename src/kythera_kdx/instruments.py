@@ -1,9 +1,9 @@
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Optional
 
 import pandas as pd
 
 from .authenticated_client import AuthenticatedClient
-from .models_v1 import InstrumentDto
+from .models_v1 import InstrumentDto, InstrumentEventDto
 
 
 class InstrumentsClient:
@@ -64,3 +64,30 @@ class InstrumentsClient:
         body = instruments_data
         response = self._client.post("/v1/instruments", data=body)  # type: ignore
         response.raise_for_status()
+
+    def get_instrument_events_raw(self, instrument_id: Optional[int] = None) -> List[Dict[str, Any]]:
+        """
+        GET /v1/instruments/events
+        Fetches instrument events (raw JSON).
+        """
+        params = {}
+        if instrument_id is not None:
+            params["instrumentId"] = instrument_id
+        response = self._client.get("/v1/instruments/events", params=params)
+        return response.json()
+
+    def get_instrument_events(self, instrument_id: Optional[int] = None) -> List[InstrumentEventDto]:
+        """
+        GET /v1/instruments/events
+        Fetches instrument events (typed models).
+        """
+        data = self.get_instrument_events_raw(instrument_id)
+        return [InstrumentEventDto(**item) for item in data]
+
+    def get_instrument_events_df(self, instrument_id: Optional[int] = None) -> pd.DataFrame:
+        """
+        GET /v1/instruments/events
+        Fetches instrument events (DataFrame).
+        """
+        data = self.get_instrument_events_raw(instrument_id)
+        return pd.DataFrame(data)

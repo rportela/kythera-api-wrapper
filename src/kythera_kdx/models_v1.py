@@ -1,5 +1,5 @@
 from datetime import date as DateType, time as TimeType
-from typing import Optional, List, Dict
+from typing import Optional, List, Dict, Any
 from pydantic import BaseModel, Field
 
 
@@ -368,6 +368,70 @@ class SubclassNavDto(BaseModel):
     subclassId: Optional[int] = Field(None)
     subclassName: str
     value: Optional[float] = Field(None)
+
+
+class InstrumentEventDto(BaseModel):
+    id: Optional[int] = Field(None)
+    instrumentId: Optional[int] = Field(None)
+    eventType: Optional[str] = Field(None)
+    eventDate: Optional[DateType] = Field(None)
+    description: Optional[str] = Field(None)
+
+
+class PnlExplainDto(BaseModel):
+    id: Optional[int] = Field(None)
+    portfolioId: Optional[int] = Field(None)
+    instrumentId: Optional[int] = Field(None)
+    pnl: Optional[float] = Field(None)
+    explainDetails: Optional[Dict[str, Any]] = Field(None)
+
+
+class SubclassDto(BaseModel):
+    id: Optional[int] = Field(None)
+    name: Optional[str] = Field(None)
+    description: Optional[str] = Field(None)
+
+
+class TradeFeeDto(BaseModel):
+    id: Optional[int] = Field(None)
+    tradeId: Optional[int] = Field(None)
+    feeType: Optional[str] = Field(None)
+    amount: Optional[float] = Field(None)
+    currency: Optional[str] = Field(None)
+
+
+class TradeInternalDto(BaseModel):
+    id: Optional[int] = Field(None)
+    tradeId: Optional[int] = Field(None)
+    internalType: Optional[str] = Field(None)
+    value: Optional[float] = Field(None)
+
+
+class IndexDto(BaseModel):
+    id: Optional[int] = Field(None)
+    name: Optional[str] = Field(None)
+    value: Optional[float] = Field(None)
+    date: Optional[DateType] = Field(None)
+
+
+class PriceModelDto(BaseModel):
+    id: Optional[int] = Field(None)
+    name: Optional[str] = Field(None)
+    description: Optional[str] = Field(None)
+
+
+class PriceModelInstrumentDto(BaseModel):
+    id: Optional[int] = Field(None)
+    priceModelId: Optional[int] = Field(None)
+    instrumentId: Optional[int] = Field(None)
+    details: Optional[Dict[str, Any]] = Field(None)
+
+
+class PriceModelInstrumentGroupDto(BaseModel):
+    id: Optional[int] = Field(None)
+    priceModelId: Optional[int] = Field(None)
+    instrumentGroupId: Optional[int] = Field(None)
+    details: Optional[Dict[str, Any]] = Field(None)
 
 
 # Update model references for forward references
