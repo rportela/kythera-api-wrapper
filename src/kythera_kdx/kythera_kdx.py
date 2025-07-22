@@ -23,6 +23,7 @@ from .trades import TradesClient
 from .subclasses import SubclassesClient
 from .indexes import IndexesClient
 from .price_models import PriceModelsClient
+from .portfolios import PortfoliosClient
 
 
 class KytheraKdx(AuthenticatedClient):
