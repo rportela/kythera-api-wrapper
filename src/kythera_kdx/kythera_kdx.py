@@ -21,6 +21,7 @@ from .prices import PricesClient
 from .risk_factors import RiskFactorsClient
 from .trades import TradesClient
 from .portfolios import PortfoliosClient
+from .subclasses import SubclassesClient
 
 
 class KytheraKdx(AuthenticatedClient):
@@ -97,6 +98,7 @@ class KytheraKdx(AuthenticatedClient):
         self._risk_factors_client: Optional[RiskFactorsClient] = None
         self._trades_client: Optional[TradesClient] = None
         self._portfolios_client: Optional[PortfoliosClient] = None
+        self._subclasses_client: Optional[SubclassesClient] = None
 
     @property
     def addin(self) -> AddInClient:
@@ -188,3 +190,10 @@ class KytheraKdx(AuthenticatedClient):
         if self._portfolios_client is None:
             self._portfolios_client = PortfoliosClient(self)
         return self._portfolios_client
+
+    @property
+    def subclasses(self) -> SubclassesClient:
+        """Access to Subclasses endpoints."""
+        if self._subclasses_client is None:
+            self._subclasses_client = SubclassesClient(self)
+        return self._subclasses_client

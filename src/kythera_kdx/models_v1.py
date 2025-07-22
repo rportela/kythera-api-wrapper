@@ -360,6 +360,16 @@ class PortfolioDto(BaseModel):
     characteristics: Optional[Dict[str, str]] = Field(None)
 
 
+class SubclassNavDto(BaseModel):
+    id: Optional[int] = Field(None)
+    date: Optional[DateType] = Field(None)
+    subclassNavTypeId: Optional[int] = Field(None)
+    subclassNavTypeName: str
+    subclassId: Optional[int] = Field(None)
+    subclassName: str
+    value: Optional[float] = Field(None)
+
+
 # Update model references for forward references
 InstrumentDto.model_rebuild()
 
