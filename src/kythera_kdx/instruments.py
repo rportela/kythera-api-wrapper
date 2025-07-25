@@ -16,7 +16,10 @@ class InstrumentsClient:
         self,
         enabled_only: bool = True,
         fetch_characteristics: bool = True,
-        fetch_group: bool = True,
+        fetch_baskets: bool = False,
+        fetch_issuers: bool = False,
+        fetch_cash_flows: bool = False,
+        fetch_nomenclatures: bool = False,
     ) -> List[Dict[str, Any]]:
         """
         GET /v1/instruments
@@ -25,7 +28,10 @@ class InstrumentsClient:
         params = {
             "enabledOnly": enabled_only,
             "fetchCharacteristics": fetch_characteristics,
-            "fetchGroup": fetch_group,
+            "fetchBaskets": fetch_baskets,
+            "fetchIssuers": fetch_issuers,
+            "fetchCashFlows": fetch_cash_flows,
+            "fetchNomenclatures": fetch_nomenclatures,
         }
         response = self._client.get("/v1/instruments", params=params)
         return response.json()
@@ -34,26 +40,46 @@ class InstrumentsClient:
         self,
         enabled_only: bool = True,
         fetch_characteristics: bool = True,
-        fetch_group: bool = True,
+        fetch_baskets: bool = False,
+        fetch_issuers: bool = False,
+        fetch_cash_flows: bool = False,
+        fetch_nomenclatures: bool = False,
     ) -> List[InstrumentDto]:
         """
         GET /v1/instruments
         Fetches all available instruments and returns typed models.
         """
-        data = self.get_instruments_raw(enabled_only, fetch_characteristics, fetch_group)
+        data = self.get_instruments_raw(
+            enabled_only,
+            fetch_characteristics,
+            fetch_baskets,
+            fetch_issuers,
+            fetch_cash_flows,
+            fetch_nomenclatures,
+        )
         return [InstrumentDto(**item) for item in data]
 
     def get_instruments_df(
         self,
         enabled_only: bool = True,
         fetch_characteristics: bool = True,
-        fetch_group: bool = True,
+        fetch_baskets: bool = False,
+        fetch_issuers: bool = False,
+        fetch_cash_flows: bool = False,
+        fetch_nomenclatures: bool = False,
     ) -> pd.DataFrame:
         """
         GET /v1/instruments
         Fetches all available instruments and returns a pandas DataFrame.
         """
-        data = self.get_instruments_raw(enabled_only, fetch_characteristics, fetch_group)
+        data = self.get_instruments_raw(
+            enabled_only,
+            fetch_characteristics,
+            fetch_baskets,
+            fetch_issuers,
+            fetch_cash_flows,
+            fetch_nomenclatures,
+        )
         return pd.DataFrame(data)
 
     def create_instruments(self, instruments_data: List[Dict[str, Any]]) -> None:
