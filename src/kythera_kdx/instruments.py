@@ -26,12 +26,12 @@ class InstrumentsClient:
         Fetches all available instruments and returns raw JSON data.
         """
         params = {
-            "enabledOnly": enabled_only,
-            "fetchCharacteristics": fetch_characteristics,
-            "fetchBaskets": fetch_baskets,
-            "fetchIssuers": fetch_issuers,
-            "fetchCashFlows": fetch_cash_flows,
-            "fetchNomenclatures": fetch_nomenclatures,
+            "enabled-only": enabled_only,
+            "fetch-characteristics": fetch_characteristics,
+            "fetch-baskets": fetch_baskets,
+            "fetch-issuers": fetch_issuers,
+            "fetch-cash-flows": fetch_cash_flows,
+            "fetch-nomenclatures": fetch_nomenclatures,
         }
         response = self._client.get("/v1/instruments", params=params)
         return response.json()
