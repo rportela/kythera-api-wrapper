@@ -1,4 +1,4 @@
-from typing import List, Dict, Any, Optional
+from typing import List, Dict, Any
 
 import pandas as pd
 
@@ -36,31 +36,35 @@ class PnlClient:
         data = self.get_intraday_pnl_raw()
         return pd.DataFrame(data)
 
-    def get_pnl_explain_raw(self, portfolio_id: Optional[int] = None, instrument_id: Optional[int] = None) -> List[Dict[str, Any]]:
+    def get_pnl_explain_raw(self, start_date, end_date, fund_family: str, discriminators: List[str]) -> List[Dict[str, Any]]:
         """
         GET /v1/pnl/explain
-        Fetches PnL explain data (raw JSON).
+        Retrieves PnL explain entries for the given range, fund family and discriminators (raw JSON).
         """
-        params = {}
-        if portfolio_id is not None:
-            params["portfolioId"] = portfolio_id
-        if instrument_id is not None:
-            params["instrumentId"] = instrument_id
+        params = {
+            "start-date": start_date.isoformat(),
+            "end-date": end_date.isoformat(),
+            "fund-family": fund_family,
+        }
+        # Repeat the query param to send an array in query string
+        for d in discriminators:
+            params.setdefault("discriminator", [])
+            params["discriminator"].append(d)
         response = self._client.get("/v1/pnl/explain", params=params)
         return response.json()
 
-    def get_pnl_explain(self, portfolio_id: Optional[int] = None, instrument_id: Optional[int] = None) -> List[PnlExplainDto]:
+    def get_pnl_explain(self, start_date, end_date, fund_family: str, discriminators: List[str]) -> List[PnlExplainDto]:
         """
         GET /v1/pnl/explain
-        Fetches PnL explain data (typed models).
+        Retrieves PnL explain entries for the given range, fund family and discriminators (typed models).
         """
-        data = self.get_pnl_explain_raw(portfolio_id, instrument_id)
+        data = self.get_pnl_explain_raw(start_date, end_date, fund_family, discriminators)
         return [PnlExplainDto(**item) for item in data]
 
-    def get_pnl_explain_df(self, portfolio_id: Optional[int] = None, instrument_id: Optional[int] = None) -> pd.DataFrame:
+    def get_pnl_explain_df(self, start_date, end_date, fund_family: str, discriminators: List[str]) -> pd.DataFrame:
         """
         GET /v1/pnl/explain
-        Fetches PnL explain data (DataFrame).
+        Retrieves PnL explain entries for the given range, fund family and discriminators (DataFrame).
         """
-        data = self.get_pnl_explain_raw(portfolio_id, instrument_id)
+        data = self.get_pnl_explain_raw(start_date, end_date, fund_family, discriminators)
         return pd.DataFrame(data)

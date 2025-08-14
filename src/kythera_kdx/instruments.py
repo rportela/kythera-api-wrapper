@@ -1,4 +1,4 @@
-from typing import List, Dict, Any, Optional
+from typing import List, Dict, Any
 
 import pandas as pd
 
@@ -91,29 +91,27 @@ class InstrumentsClient:
         response = self._client.post("/v1/instruments", data=body)  # type: ignore
         response.raise_for_status()
 
-    def get_instrument_events_raw(self, instrument_id: Optional[int] = None) -> List[Dict[str, Any]]:
+    def get_instrument_events_raw(self, event_date) -> List[Dict[str, Any]]:
         """
         GET /v1/instruments/events
-        Fetches instrument events (raw JSON).
+        Fetches instrument events by date (raw JSON).
         """
-        params = {}
-        if instrument_id is not None:
-            params["instrumentId"] = instrument_id
+        params = {"event-date": event_date.isoformat()}
         response = self._client.get("/v1/instruments/events", params=params)
         return response.json()
 
-    def get_instrument_events(self, instrument_id: Optional[int] = None) -> List[InstrumentEventDto]:
+    def get_instrument_events(self, event_date) -> List[InstrumentEventDto]:
         """
         GET /v1/instruments/events
-        Fetches instrument events (typed models).
+        Fetches instrument events by date (typed models).
         """
-        data = self.get_instrument_events_raw(instrument_id)
+        data = self.get_instrument_events_raw(event_date)
         return [InstrumentEventDto(**item) for item in data]
 
-    def get_instrument_events_df(self, instrument_id: Optional[int] = None) -> pd.DataFrame:
+    def get_instrument_events_df(self, event_date) -> pd.DataFrame:
         """
         GET /v1/instruments/events
-        Fetches instrument events (DataFrame).
+        Fetches instrument events by date (DataFrame).
         """
-        data = self.get_instrument_events_raw(instrument_id)
+        data = self.get_instrument_events_raw(event_date)
         return pd.DataFrame(data)

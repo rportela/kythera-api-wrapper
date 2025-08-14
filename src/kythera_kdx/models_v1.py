@@ -88,6 +88,49 @@ class InstrumentGroupDto(BaseModel):
     characteristics: Optional[Dict[str, str]] = Field(None)
 
 
+# New nested DTOs for Instrument details per spec
+class InstrumentIssuerDto(BaseModel):
+    issuerId: Optional[int] = Field(None)
+    name: str
+    description: str
+    tinNumber: str
+    countryId: Optional[int] = Field(None)
+    country: str
+    characteristics: Optional[Dict[str, str]] = Field(None)
+
+
+class InstrumentBasketUnderlyingDto(BaseModel):
+    id: Optional[int] = Field(None)
+    underlyingId: Optional[int] = Field(None)
+    underlyingInstrumentGroup: str
+    underlyingInstrument: str
+    entryDate: Optional[DateType] = Field(None)
+    settlementDate: Optional[DateType] = Field(None)
+    quantity: Optional[float] = Field(None)
+    price: Optional[float] = Field(None)
+    tradeFee: Optional[float] = Field(None)
+    fundingSpread: Optional[float] = Field(None)
+    observation: str
+
+
+class InstrumentCashFlowDto(BaseModel):
+    id: Optional[int] = Field(None)
+    cashFlowTypeId: Optional[int] = Field(None)
+    cashFlowType: str
+    fixingDate: Optional[DateType] = Field(None)
+    endAccrualDate: Optional[DateType] = Field(None)
+    settleDate: Optional[DateType] = Field(None)
+    fixingPmtFactor: Optional[float] = Field(None)
+
+
+class InstrumentNomenclatureDto(BaseModel):
+    id: Optional[int] = Field(None)
+    counterparty: str
+    application: str
+    namingParameter: str
+    definition: str
+
+
 class InstrumentDto(BaseModel):
     id: Optional[int] = Field(None)
     name: str
@@ -95,6 +138,10 @@ class InstrumentDto(BaseModel):
     groupName: str
     group: Optional['InstrumentGroupDto'] = Field(None)
     characteristics: Optional[Dict[str, str]] = Field(None)
+    issuers: Optional[List[InstrumentIssuerDto]] = Field(None)
+    baskets: Optional[List[InstrumentBasketUnderlyingDto]] = Field(None)
+    cashFlows: Optional[List[InstrumentCashFlowDto]] = Field(None)
+    nomenclatures: Optional[List[InstrumentNomenclatureDto]] = Field(None)
 
 
 class InstrumentParameterDto(BaseModel):
@@ -227,6 +274,8 @@ class RiskFactorDto(BaseModel):
     description: str
     riskFactorTypeId: Optional[int] = Field(None)
     riskFactorTypeName: str
+    numberOfDimensions: Optional[float] = Field(None)
+    characteristics: Optional[Dict[str, str]] = Field(None)
 
 
 class RiskFactorValueDto(BaseModel):
@@ -346,6 +395,7 @@ class FundFamilyDto(BaseModel):
 class FundFamilyRelationDto(BaseModel):
     id: Optional[int] = Field(None)
     fundFamilyId: Optional[int] = Field(None)
+    fundFamilyName: str
     fundId: Optional[int] = Field(None)
     fundName: str
     navMultiplier: Optional[float] = Field(None)
@@ -389,15 +439,25 @@ class PnlExplainDto(BaseModel):
 class SubclassDto(BaseModel):
     id: Optional[int] = Field(None)
     name: Optional[str] = Field(None)
-    description: Optional[str] = Field(None)
+    fullName: Optional[str] = Field(None)
+    fundClassId: Optional[int] = Field(None)
+    fundClassName: str
+    transferAgentId: Optional[int] = Field(None)
+    transferAgentName: str
+    isEnabled: Optional[bool] = Field(None)
+    characteristics: Optional[Dict[str, str]] = Field(None)
 
 
 class TradeFeeDto(BaseModel):
     id: Optional[int] = Field(None)
+    effectiveDate: Optional[DateType] = Field(None)
     tradeId: Optional[int] = Field(None)
-    feeType: Optional[str] = Field(None)
-    amount: Optional[float] = Field(None)
-    currency: Optional[str] = Field(None)
+    executionFee: Optional[float] = Field(None)
+    clearingFee: Optional[float] = Field(None)
+    exchangeFee: Optional[float] = Field(None)
+    registerFee: Optional[float] = Field(None)
+    nonPnlFee: Optional[float] = Field(None)
+    observation: Optional[str] = Field(None)
 
 
 class TradeInternalDto(BaseModel):
@@ -409,15 +469,43 @@ class TradeInternalDto(BaseModel):
 
 class IndexDto(BaseModel):
     id: Optional[int] = Field(None)
-    name: Optional[str] = Field(None)
-    value: Optional[float] = Field(None)
-    date: Optional[DateType] = Field(None)
+    name: str
+    description: str
+    type: str
+    currencyId: Optional[int] = Field(None)
+    currency: str
+    characteristics: Optional[Dict[str, str]] = Field(None)
 
 
 class PriceModelDto(BaseModel):
     id: Optional[int] = Field(None)
     name: Optional[str] = Field(None)
     description: Optional[str] = Field(None)
+    riskFactorsCount: Optional[int] = Field(None)
+
+
+class InstrumentPriceModelDto(BaseModel):
+    instrumentId: Optional[int] = Field(None)
+    instrumentName: str
+    id: Optional[int] = Field(None)
+    instrumentGroupId: Optional[int] = Field(None)
+    instrumentGroupName: str
+    priceModelId: Optional[int] = Field(None)
+    priceModelName: str
+    groupingId: Optional[int] = Field(None)
+    groupingName: str
+    actionRiskFactors: Optional[Dict[str, str]] = Field(None)
+
+
+class InstrumentGroupPriceModelDto(BaseModel):
+    id: Optional[int] = Field(None)
+    instrumentGroupId: Optional[int] = Field(None)
+    instrumentGroupName: str
+    priceModelId: Optional[int] = Field(None)
+    priceModelName: str
+    groupingId: Optional[int] = Field(None)
+    groupingName: str
+    actionRiskFactors: Optional[Dict[str, str]] = Field(None)
 
 
 class PriceModelInstrumentDto(BaseModel):

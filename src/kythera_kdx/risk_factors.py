@@ -16,28 +16,29 @@ class RiskFactorsClient:
     def __init__(self, client: AuthenticatedClient):
         self._client = client
 
-    def get_risk_factors_raw(self) -> List[Dict[str, Any]]:
+    def get_risk_factors_raw(self, include_characteristics: bool = False) -> List[Dict[str, Any]]:
         """
         GET /v1/risk-factors
         Fetches all risk factors and returns raw JSON data.
         """
-        response = self._client.get("/v1/risk-factors")
+        params = {"include-characteristics": include_characteristics}
+        response = self._client.get("/v1/risk-factors", params=params)
         return response.json()
 
-    def get_risk_factors(self) -> List[RiskFactorDto]:
+    def get_risk_factors(self, include_characteristics: bool = False) -> List[RiskFactorDto]:
         """
         GET /v1/risk-factors
         Fetches all risk factors and returns typed models.
         """
-        data = self.get_risk_factors_raw()
+        data = self.get_risk_factors_raw(include_characteristics)
         return [RiskFactorDto(**item) for item in data]
 
-    def get_risk_factors_df(self) -> pd.DataFrame:
+    def get_risk_factors_df(self, include_characteristics: bool = False) -> pd.DataFrame:
         """
         GET /v1/risk-factors
         Fetches all risk factors and returns a pandas DataFrame.
         """
-        data = self.get_risk_factors_raw()
+        data = self.get_risk_factors_raw(include_characteristics)
         return pd.DataFrame(data)
 
     def get_risk_factor_values_raw(

@@ -46,56 +46,52 @@ class TradesClient:
         data = self.get_trades_raw(effective_date)
         return pd.DataFrame(data)
 
-    def get_trade_fees_raw(self, trade_id: Optional[int] = None) -> List[Dict[str, Any]]:
+    def get_trade_fees_raw(self, effective_date: date) -> List[Dict[str, Any]]:
         """
         GET /v1/trades/fees
-        Fetches trade fees (raw JSON).
+        Fetches trade fees for the provided effective date (raw JSON).
         """
-        params = {}
-        if trade_id is not None:
-            params["tradeId"] = trade_id
+        params = {"effective-date": effective_date.isoformat()}
         response = self._client.get("/v1/trades/fees", params=params)
         return response.json()
 
-    def get_trade_fees(self, trade_id: Optional[int] = None) -> List[TradeFeeDto]:
+    def get_trade_fees(self, effective_date: date) -> List[TradeFeeDto]:
         """
         GET /v1/trades/fees
-        Fetches trade fees (typed models).
+        Fetches trade fees for the provided effective date (typed models).
         """
-        data = self.get_trade_fees_raw(trade_id)
+        data = self.get_trade_fees_raw(effective_date)
         return [TradeFeeDto(**item) for item in data]
 
-    def get_trade_fees_df(self, trade_id: Optional[int] = None) -> pd.DataFrame:
+    def get_trade_fees_df(self, effective_date: date) -> pd.DataFrame:
         """
         GET /v1/trades/fees
-        Fetches trade fees (DataFrame).
+        Fetches trade fees for the provided effective date (DataFrame).
         """
-        data = self.get_trade_fees_raw(trade_id)
+        data = self.get_trade_fees_raw(effective_date)
         return pd.DataFrame(data)
 
-    def get_trade_internals_raw(self, trade_id: Optional[int] = None) -> List[Dict[str, Any]]:
+    def get_trade_internals_raw(self, effective_date: date) -> List[Dict[str, Any]]:
         """
         GET /v1/trades/internals
-        Fetches trade internals (raw JSON).
+        Fetches internal trades for the provided effective date (raw JSON).
         """
-        params = {}
-        if trade_id is not None:
-            params["tradeId"] = trade_id
+        params = {"effective-date": effective_date.isoformat()}
         response = self._client.get("/v1/trades/internals", params=params)
         return response.json()
 
-    def get_trade_internals(self, trade_id: Optional[int] = None) -> List[TradeInternalDto]:
+    def get_trade_internals(self, effective_date: date) -> List[TradeInternalDto]:
         """
         GET /v1/trades/internals
-        Fetches trade internals (typed models).
+        Fetches internal trades for the provided effective date (typed models).
         """
-        data = self.get_trade_internals_raw(trade_id)
+        data = self.get_trade_internals_raw(effective_date)
         return [TradeInternalDto(**item) for item in data]
 
-    def get_trade_internals_df(self, trade_id: Optional[int] = None) -> pd.DataFrame:
+    def get_trade_internals_df(self, effective_date: date) -> pd.DataFrame:
         """
         GET /v1/trades/internals
-        Fetches trade internals (DataFrame).
+        Fetches internal trades for the provided effective date (DataFrame).
         """
-        data = self.get_trade_internals_raw(trade_id)
+        data = self.get_trade_internals_raw(effective_date)
         return pd.DataFrame(data)

@@ -55,26 +55,30 @@ class SubclassesClient:
         data = self.get_subclass_navs_raw(date, start_date, end_date)
         return pd.DataFrame(data)
 
-    def get_subclasses_raw(self) -> List[Dict[str, Any]]:
+    def get_subclasses_raw(self, include_characteristics: bool = False, enabled_only: bool = True) -> List[Dict[str, Any]]:
         """
         GET /v1/subclasses
         Fetches all subclasses (raw JSON).
         """
-        response = self._client.get("/v1/subclasses")
+        params = {
+            "include-characteristics": include_characteristics,
+            "enabled-only": enabled_only,
+        }
+        response = self._client.get("/v1/subclasses", params=params)
         return response.json()
 
-    def get_subclasses(self) -> List[SubclassDto]:
+    def get_subclasses(self, include_characteristics: bool = False, enabled_only: bool = True) -> List[SubclassDto]:
         """
         GET /v1/subclasses
         Fetches all subclasses (typed models).
         """
-        data = self.get_subclasses_raw()
+        data = self.get_subclasses_raw(include_characteristics, enabled_only)
         return [SubclassDto(**item) for item in data]
 
-    def get_subclasses_df(self) -> pd.DataFrame:
+    def get_subclasses_df(self, include_characteristics: bool = False, enabled_only: bool = True) -> pd.DataFrame:
         """
         GET /v1/subclasses
         Fetches all subclasses (DataFrame).
         """
-        data = self.get_subclasses_raw()
+        data = self.get_subclasses_raw(include_characteristics, enabled_only)
         return pd.DataFrame(data)
