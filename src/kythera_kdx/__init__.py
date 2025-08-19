@@ -4,7 +4,7 @@ Kythera KDX - A Python wrapper for the Kythera API
 This package provides a convenient Python interface to interact with the Kythera API.
 """
 
-__version__ = "0.1.0"
+__version__ = "0.5.0"
 __author__ = "Your Name"
 __email__ = "your.email@example.com"
 
@@ -24,6 +24,7 @@ from .risk_factors import RiskFactorsClient
 from .positions import PositionsClient
 from .trades import TradesClient
 from .portfolios import PortfoliosClient
+from .issuers import IssuersClient
 
 __all__ = [
     "AuthenticatedClient",
@@ -44,4 +45,5 @@ __all__ = [
     "TradesClient",
     "KytheraKdx",
     "PortfoliosClient",
+    "IssuersClient",
 ]

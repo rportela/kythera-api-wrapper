@@ -9,6 +9,7 @@ from .models_v1 import (
     RiskFactorValueDto,
     OverrideRiskFactorValueRequest,
     RiskValueTypeDto,
+    RiskFactorParameterDto,
 )
 
 
@@ -39,6 +40,30 @@ class RiskFactorsClient:
         Fetches all risk factors and returns a pandas DataFrame.
         """
         data = self.get_risk_factors_raw(include_characteristics)
+        return pd.DataFrame(data)
+
+    def get_risk_factor_parameters_raw(self) -> List[Dict[str, Any]]:
+        """
+        GET /v1/risk-factors/parameters
+        Fetches all risk factor parameters (raw JSON).
+        """
+        response = self._client.get("/v1/risk-factors/parameters")
+        return response.json()
+
+    def get_risk_factor_parameters(self) -> List[RiskFactorParameterDto]:
+        """
+        GET /v1/risk-factors/parameters
+        Fetches all risk factor parameters (typed models).
+        """
+        data = self.get_risk_factor_parameters_raw()
+        return [RiskFactorParameterDto(**item) for item in data]
+
+    def get_risk_factor_parameters_df(self) -> pd.DataFrame:
+        """
+        GET /v1/risk-factors/parameters
+        Fetches all risk factor parameters (DataFrame).
+        """
+        data = self.get_risk_factor_parameters_raw()
         return pd.DataFrame(data)
 
     def get_risk_factor_values_raw(

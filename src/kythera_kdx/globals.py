@@ -145,18 +145,19 @@ class GlobalsClient:
         data = self.get_institution_types_raw()
         return pd.DataFrame(data)
 
+    # Deprecated in v1.2: issuer endpoints moved from /v1/globals/* to /v1/issuers
     def get_issuers_raw(self, fetch_characteristics: bool = False) -> List[Dict[str, Any]]:
         """
-        GET /v1/globals/issuers
+        GET /v1/issuers (was /v1/globals/issuers)
         Fetches all available issuers and returns raw JSON data.
         """
         params = {"fetchCharacteristics": fetch_characteristics}
-        response = self._client.get("/v1/globals/issuers", params=params)
+        response = self._client.get("/v1/issuers", params=params)
         return response.json()
 
     def get_issuers(self, fetch_characteristics: bool = False) -> List[IssuerDto]:
         """
-        GET /v1/globals/issuers
+        GET /v1/issuers (was /v1/globals/issuers)
         Fetches all available issuers and returns typed models.
         """
         data = self.get_issuers_raw(fetch_characteristics)
@@ -164,7 +165,7 @@ class GlobalsClient:
 
     def get_issuers_df(self, fetch_characteristics: bool = False) -> pd.DataFrame:
         """
-        GET /v1/globals/issuers
+        GET /v1/issuers (was /v1/globals/issuers)
         Fetches all available issuers and returns a pandas DataFrame.
         """
         data = self.get_issuers_raw(fetch_characteristics)

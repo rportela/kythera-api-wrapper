@@ -26,7 +26,8 @@ def test_kythera_kdx():
         client_properties = [
             'addin', 'funds', 'globals', 'instrument_groups', 
             'instrument_parameters', 'instruments', 'intraday',
-            'pnl', 'positions', 'prices', 'risk_factors', 'trades'
+            'pnl', 'positions', 'prices', 'risk_factors', 'trades',
+            'portfolios', 'subclasses', 'indexes', 'price_models', 'issuers'
         ]
         
         print("\n=== Testing Client Properties ===")

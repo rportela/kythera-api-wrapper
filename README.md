@@ -83,7 +83,20 @@ from kythera_kdx import KytheraKdx
 kdx = KytheraKdx(x_api_key="xxxx-xxxx-xxxx")
 ```
 
-## Configuration
+## Authentication and Environment Variables
+
+The client reads configuration from parameters or environment variables:
+
+- KYTHERA_BASE_URL (default: https://kdx-api.app.lgcy.com.br)
+- KYTHERA_TENANT_ID (default: 497a1564-7d5b-48d3-a55e-791eaeef5819)
+- KYTHERA_CLIENT_ID (required if not passed as parameter)
+- KYTHERA_CLIENT_SECRET (optional; when set, uses service principal)
+- KYTHERA_SCOPES (optional; default: "{client_id}/.default")
+- KYTHERA_X_API_KEY (optional; adds X-Api-Key header in addition to Authorization)
+
+Scopes guidance:
+- By default we request the application default scope using the pattern {client_id}/.default.
+- If your Azure AD app exposes a custom resource URI (api://.../access), set KYTHERA_SCOPES to that value.
 
 ### Environment Variables
 
@@ -292,6 +305,18 @@ print("P&L by Fund:")
 print(pnl_by_fund)
 ```
 
+### Additional examples
+
+# PnL Explain
+from datetime import date
+start = date(2025, 8, 1)
+end = date(2025, 8, 19)
+explain = kdx.pnl.get_pnl_explain(start, end, fund_family="MASTER", discriminators=["fundName","instrumentName"])
+
+# Indexes values
+vals_today = kdx.indexes.get_index_values(session_date=date.today())
+vals_range = kdx.indexes.get_index_values(from_date=start, to_date=end)
+
 ### Error Handling
 
 ```python
@@ -333,6 +358,7 @@ The `KytheraKdx` unified client provides access to specialized modules through p
 | **Instrument Parameters** | `kdx.instrument_parameters` | Instrument parameters | Parameter management and configuration |
 | **Intraday** | `kdx.intraday` | Real-time data | Intraday market data and analytics |
 | **AddIn** | `kdx.addin` | AddIn functionality | Excel AddIn related operations |
+| **Issuers** | `kdx.issuers` | Issuer reference data | Issuers list, issuer parameters |
 
 ### Example Usage
 
@@ -347,6 +373,10 @@ positions = kdx.positions.get_positions()
 pnl = kdx.pnl.get_intraday_pnl()
 prices = kdx.prices.get_all_prices(date.today(), "CLOSE")
 trades = kdx.trades.get_trades(effective_date=date.today())
+
+# Issuers
+issuers = kdx.issuers.get_issuers(fetch_characteristics=True)
+issuer_params = kdx.issuers.get_issuer_parameters()
 ```
 
 ## Data Models

@@ -7,7 +7,8 @@ from src.kythera_kdx.pnl import PnlClient
 from src.kythera_kdx.models_v1 import IntradayPnlEntryDto
 from unittest.mock import Mock
 import pandas as pd
-from typing import List, Dict, Any
+import math
+
 
 def test_pnl_client():
     """Test the PnlClient implementation."""
@@ -50,7 +51,7 @@ def test_pnl_client():
     raw_data = pnl_client.get_intraday_pnl_raw()
     assert isinstance(raw_data, list)
     assert len(raw_data) == 2
-    assert raw_data[0]["pnl"] == 1000.50
+    assert math.isclose(raw_data[0]["pnl"], 1000.50, rel_tol=1e-9)
     print("   ✓ Raw data method works correctly")
     
     # Test 2: get_intraday_pnl() 
@@ -59,8 +60,8 @@ def test_pnl_client():
     assert isinstance(typed_data, list)
     assert len(typed_data) == 2
     assert isinstance(typed_data[0], IntradayPnlEntryDto)
-    assert typed_data[0].pnl == 1000.50
-    assert typed_data[1].pnl == -250.75
+    assert math.isclose(typed_data[0].pnl or 0.0, 1000.50, rel_tol=1e-9)
+    assert math.isclose(typed_data[1].pnl or 0.0, -250.75, rel_tol=1e-9)
     print("   ✓ Typed data method works correctly")
     
     # Test 3: get_intraday_pnl_df()
@@ -68,8 +69,8 @@ def test_pnl_client():
     df = pnl_client.get_intraday_pnl_df()
     assert isinstance(df, pd.DataFrame)
     assert len(df) == 2
-    assert df.iloc[0]["pnl"] == 1000.50
-    assert df.iloc[1]["pnl"] == -250.75
+    assert math.isclose(float(df.iloc[0]["pnl"]), 1000.50, rel_tol=1e-9)
+    assert math.isclose(float(df.iloc[1]["pnl"]), -250.75, rel_tol=1e-9)
     print("   ✓ DataFrame method works correctly")
     
     # Verify proper client method calls
@@ -81,5 +82,46 @@ def test_pnl_client():
     print(f"   - Typed method returns: {type(typed_data)} with {len(typed_data)} IntradayPnlEntryDto objects")
     print(f"   - DataFrame method returns: {type(df)} with shape {df.shape}")
 
+
+def test_pnl_explain_params_and_shapes():
+    from datetime import date
+    mock_client = Mock()
+
+    payload = [
+        {"id": 1, "pnl": 10.5, "explainDetails": {"fundName": "F1"}},
+        {"id": 2, "pnl": -2.0, "explainDetails": {"fundName": "F2"}},
+    ]
+    mock_resp = Mock()
+    mock_resp.json.return_value = payload
+    mock_client.get.return_value = mock_resp
+
+    pnl_client = PnlClient(mock_client)
+
+    start = date(2025, 8, 1)
+    end = date(2025, 8, 19)
+    disc = ["fundName", "instrumentName"]
+
+    raw = pnl_client.get_pnl_explain_raw(start, end, "MASTER", disc)
+    assert isinstance(raw, list) and len(raw) == 2
+
+    # Verify query param shapes (array as repeated key encoded via list)
+    mock_client.get.assert_called_with(
+        "/v1/pnl/explain",
+        params={
+            "start-date": start.isoformat(),
+            "end-date": end.isoformat(),
+            "fund-family": "MASTER",
+            "discriminator": disc,
+        },
+    )
+
+    typed = pnl_client.get_pnl_explain(start, end, "MASTER", disc)
+    assert hasattr(typed[0], "pnl")
+
+    df = pnl_client.get_pnl_explain_df(start, end, "MASTER", disc)
+    assert not df.empty
+
+
 if __name__ == "__main__":
     test_pnl_client()
+    test_pnl_explain_params_and_shapes()

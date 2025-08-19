@@ -522,6 +522,20 @@ class PriceModelInstrumentGroupDto(BaseModel):
     details: Optional[Dict[str, Any]] = Field(None)
 
 
+# New DTOs added from v1.2
+class IndexValueDto(BaseModel):
+    indexName: str
+    sessionDate: Optional[DateType] = Field(None)
+    value: Optional[float] = Field(None)
+
+
+class RiskFactorParameterDto(BaseModel):
+    id: Optional[int] = Field(None)
+    name: str
+    description: str
+    parameterType: str
+
+
 # Update model references for forward references
 InstrumentDto.model_rebuild()
 

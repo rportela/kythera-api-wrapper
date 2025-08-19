@@ -24,6 +24,7 @@ from .subclasses import SubclassesClient
 from .indexes import IndexesClient
 from .price_models import PriceModelsClient
 from .portfolios import PortfoliosClient
+from .issuers import IssuersClient
 
 
 class KytheraKdx(AuthenticatedClient):
@@ -103,6 +104,7 @@ class KytheraKdx(AuthenticatedClient):
         self._subclasses_client: Optional[SubclassesClient] = None
         self._indexes_client: Optional[IndexesClient] = None
         self._price_models_client: Optional[PriceModelsClient] = None
+        self._issuers_client: Optional[IssuersClient] = None
 
     @property
     def addin(self) -> AddInClient:
@@ -215,3 +217,10 @@ class KytheraKdx(AuthenticatedClient):
         if not hasattr(self, '_price_models_client') or self._price_models_client is None:
             self._price_models_client = PriceModelsClient(self)
         return self._price_models_client
+
+    @property
+    def issuers(self) -> IssuersClient:
+        """Access to Issuers endpoints."""
+        if self._issuers_client is None:
+            self._issuers_client = IssuersClient(self)
+        return self._issuers_client

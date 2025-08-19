@@ -28,7 +28,7 @@ This document outlines the complete client module structure organized by API pat
 - `get_currencies()` → `GET /v1/globals/currencies`
 - `get_institutions(fetch_characteristics=False, fetch_nomenclatures=False)` → `GET /v1/globals/institutions`
 - `get_institution_types()` → `GET /v1/globals/institutions/types`
-- `get_issuers(fetch_characteristics=False)` → `GET /v1/globals/issuers`
+- (moved) `get_issuers(...)` now uses `GET /v1/issuers`
 
 ### 4. InstrumentGroupsClient (`instrument_groups.py`)
 **Base Path:** `/v1/instrument-groups`
@@ -84,12 +84,27 @@ This document outlines the complete client module structure organized by API pat
 - `get_risk_factor_values(valuation_date)` → `GET /v1/risk-factor-values`
 - `post_risk_factor_values(requests)` → `POST /v1/risk-factor-values`
 - `get_risk_factor_value_types()` → `GET /v1/risk-factor-values/types`
+- `get_risk_factor_parameters()` → `GET /v1/risk-factors/parameters`
 
 ### 12. TradesClient (`trades.py`)
 **Base Path:** `/v1/trades`
 
 **Methods:**
 - `get_trades(effective_date=None)` → `GET /v1/trades`
+
+### 13. IndexesClient (`indexes.py`)
+**Base Path:** `/v1/indexes*`
+
+**Methods:**
+- `get_indexes(include_characteristics=False)` → `GET /v1/indexes`
+- `get_index_values(session_date=None, from_date=None, to_date=None)` → `GET /v1/indexes/values`
+
+### 14. IssuersClient (`issuers.py`)
+**Base Path:** `/v1/issuers*`
+
+**Methods:**
+- `get_issuers(fetch_characteristics=False)` → `GET /v1/issuers`
+- `get_issuer_parameters()` → `GET /v1/issuers/parameters`
 
 ## Usage Example
 
@@ -128,10 +143,12 @@ prices = prices_client.get_all_prices(
 - **1** PnL endpoint
 - **1** Positions endpoint
 - **4** Prices endpoints (3 GET, 1 POST)
-- **4** Risk Factors endpoints (3 GET, 1 POST)
+- **5** Risk Factors endpoints (4 GET, 1 POST)
 - **1** Trades endpoint
+- **2** Indexes endpoints
+- **2** Issuers endpoints
 
-**Total: 27 endpoints** organized across **12 client modules**
+**Total: 30 endpoints** organized across **14 client modules**
 
 ## Architecture Benefits
 
