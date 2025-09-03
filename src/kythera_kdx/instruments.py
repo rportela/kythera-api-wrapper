@@ -82,15 +82,6 @@ class InstrumentsClient:
         )
         return pd.DataFrame(data)
 
-    def create_instruments(self, instruments_data: List[Dict[str, Any]]) -> None:
-        """
-        POST /v1/instruments
-        Creates new instruments.
-        """
-        body = instruments_data
-        response = self._client.post("/v1/instruments", data=body)  # type: ignore
-        response.raise_for_status()
-
     def get_instrument_events_raw(self, event_date) -> List[Dict[str, Any]]:
         """
         GET /v1/instruments/events

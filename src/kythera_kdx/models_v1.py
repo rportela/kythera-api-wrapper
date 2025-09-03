@@ -26,6 +26,10 @@ class FundNavDto(BaseModel):
     fundId: Optional[int] = Field(None)
     fundName: Optional[str] = Field(None)
     date: Optional[DateType] = Field(None)
+    sourceId: Optional[int] = Field(None)
+    sourceName: Optional[str] = Field(None)
+    statusId: Optional[int] = Field(None)
+    statusName: Optional[str] = Field(None)
     value: Optional[float] = Field(None)
 
 
@@ -73,11 +77,7 @@ class IssuerDto(BaseModel):
     description: str
     tinNumber: str
     countryId: Optional[int] = Field(None)
-    issuerCountryId: Optional[int] = Field(None)
-    countryName: Optional[str] = Field(None)
-    issuerCountryName: str
-    parentIssuerId: Optional[int] = Field(None)
-    parentIssuerName: str
+    country: str
     characteristics: Optional[Dict[str, str]] = Field(None)
 
 
@@ -368,11 +368,12 @@ class FundCounterpartyMarginDto(BaseModel):
     marginTypeName: str
     currencyId: Optional[int] = Field(None)
     currencyCode: str
+    totalRequiredMargin: Optional[float] = Field(None)
 
 
 class FundRiskMeasureDto(BaseModel):
     id: Optional[int] = Field(None)
-    effectiveDate: Optional[str] = Field(None)
+    effectiveDate: Optional[DateType] = Field(None)
     fundId: Optional[int] = Field(None)
     fundName: str
     portfolioId: Optional[int] = Field(None)
@@ -417,6 +418,10 @@ class SubclassNavDto(BaseModel):
     subclassNavTypeName: str
     subclassId: Optional[int] = Field(None)
     subclassName: str
+    sourceId: Optional[int] = Field(None)
+    sourceName: Optional[str] = Field(None)
+    statusId: Optional[int] = Field(None)
+    statusName: Optional[str] = Field(None)
     value: Optional[float] = Field(None)
 
 
