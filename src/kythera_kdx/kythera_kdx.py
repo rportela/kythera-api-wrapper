@@ -216,15 +216,14 @@ class KytheraKdx(AuthenticatedClient):
     @property
     def indexes(self) -> IndexesClient:
         """Access to Indexes endpoints."""
-        if not hasattr(self, '_indexes_client') or self._indexes_client is None:
+        if self._indexes_client is None:
             self._indexes_client = IndexesClient(self)
         return self._indexes_client
 
     @property
     def price_models(self) -> PriceModelsClient:
         """Access to Price Models endpoints."""
-        if (not hasattr(self, '_price_models_client') or
-                self._price_models_client is None):
+        if self._price_models_client is None:
             self._price_models_client = PriceModelsClient(self)
         return self._price_models_client
 
