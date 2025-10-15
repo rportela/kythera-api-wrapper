@@ -1,4 +1,5 @@
 from typing import List, Dict, Any
+from datetime import date
 
 import pandas as pd
 
@@ -82,7 +83,7 @@ class InstrumentsClient:
         )
         return pd.DataFrame(data)
 
-    def get_instrument_events_raw(self, event_date) -> List[Dict[str, Any]]:
+    def get_instrument_events_raw(self, event_date: date) -> List[Dict[str, Any]]:
         """
         GET /v1/instruments/events
         Fetches instrument events by date (raw JSON).
@@ -91,7 +92,7 @@ class InstrumentsClient:
         response = self._client.get("/v1/instruments/events", params=params)
         return response.json()
 
-    def get_instrument_events(self, event_date) -> List[InstrumentEventDto]:
+    def get_instrument_events(self, event_date: date) -> List[InstrumentEventDto]:
         """
         GET /v1/instruments/events
         Fetches instrument events by date (typed models).
@@ -99,7 +100,7 @@ class InstrumentsClient:
         data = self.get_instrument_events_raw(event_date)
         return [InstrumentEventDto(**item) for item in data]
 
-    def get_instrument_events_df(self, event_date) -> pd.DataFrame:
+    def get_instrument_events_df(self, event_date: date) -> pd.DataFrame:
         """
         GET /v1/instruments/events
         Fetches instrument events by date (DataFrame).

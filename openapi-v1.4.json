@@ -1,0 +1,3947 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Kythera Data eXchange",
+    "description": "Kythera Data eXchange API",
+    "version": "v1"
+  },
+  "servers": [
+    {
+      "url": "https://kdx-api.app.lgcy.com.br/"
+    }
+  ],
+  "paths": {
+    "/v1/fund-counterparty-margins": {
+      "get": {
+        "tags": [
+          "Funds"
+        ],
+        "summary": "Get All Fund Counterparty Margins",
+        "description": "Retrieves all fund counterparty margins for a specified session date.",
+        "parameters": [
+          {
+            "name": "session-date",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/FundCounterpartyMarginDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FundCounterpartyMarginDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FundCounterpartyMarginDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "ffac81db-8b9f-4747-8a3e-526e1e9c9d68"
+            ]
+          },
+          {
+            "X-Api-Key": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/fund-families": {
+      "get": {
+        "tags": [
+          "Fund Families"
+        ],
+        "summary": "Get All Fund Families",
+        "description": "Fetches all available fund families.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/FundFamilyDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FundFamilyDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FundFamilyDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "ffac81db-8b9f-4747-8a3e-526e1e9c9d68"
+            ]
+          },
+          {
+            "X-Api-Key": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/fund-families-relations": {
+      "get": {
+        "tags": [
+          "Fund Families"
+        ],
+        "summary": "Get All Fund Families Relations",
+        "description": "Fetches all fund family <-> funds relations maps.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/FundFamilyRelationDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FundFamilyRelationDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FundFamilyRelationDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "ffac81db-8b9f-4747-8a3e-526e1e9c9d68"
+            ]
+          },
+          {
+            "X-Api-Key": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/fund-risk-measures": {
+      "get": {
+        "tags": [
+          "Funds"
+        ],
+        "summary": "Get All Fund Risk Measures",
+        "description": "Fetches all available risk measures for funds on a specified effective date.",
+        "parameters": [
+          {
+            "name": "effective-date",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/FundRiskMeasureDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FundRiskMeasureDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FundRiskMeasureDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "ffac81db-8b9f-4747-8a3e-526e1e9c9d68"
+            ]
+          },
+          {
+            "X-Api-Key": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/funds": {
+      "get": {
+        "tags": [
+          "Funds"
+        ],
+        "summary": "Get All Funds",
+        "description": "Fetches all available funds.",
+        "parameters": [
+          {
+            "name": "enabledOnly",
+            "in": "query",
+            "description": "Returns only funds that are currently enabled.",
+            "schema": {
+              "type": "boolean",
+              "default": true
+            }
+          },
+          {
+            "name": "fetchCharacteristics",
+            "in": "query",
+            "description": "Fetches all characteristics for each fund.",
+            "schema": {
+              "type": "boolean",
+              "default": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/FundDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FundDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FundDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "ffac81db-8b9f-4747-8a3e-526e1e9c9d68"
+            ]
+          },
+          {
+            "X-Api-Key": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/funds/navs": {
+      "get": {
+        "tags": [
+          "Funds"
+        ],
+        "summary": "Get All Fund NAVs",
+        "description": "Fetches all available fund NAV entries for a given date or period.",
+        "parameters": [
+          {
+            "name": "date",
+            "in": "query",
+            "description": "A specific date. Use either this or the range parameters.",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "description": "The start date of the range.",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "description": "The end date of the range.",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "fundId",
+            "in": "query",
+            "description": "The fund identifier. Optional.",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": null
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/FundNavDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FundNavDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FundNavDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "ffac81db-8b9f-4747-8a3e-526e1e9c9d68"
+            ]
+          },
+          {
+            "X-Api-Key": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/globals/calendars": {
+      "get": {
+        "tags": [
+          "Globals"
+        ],
+        "summary": "Get All Calendars",
+        "description": "Fetches all available calendars.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CalendarDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "ffac81db-8b9f-4747-8a3e-526e1e9c9d68"
+            ]
+          },
+          {
+            "X-Api-Key": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/globals/countries": {
+      "get": {
+        "tags": [
+          "Globals"
+        ],
+        "summary": "Get All Countries",
+        "description": "Fetches all available countries.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CountryDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "ffac81db-8b9f-4747-8a3e-526e1e9c9d68"
+            ]
+          },
+          {
+            "X-Api-Key": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/globals/currencies": {
+      "get": {
+        "tags": [
+          "Globals"
+        ],
+        "summary": "Get All Currencies",
+        "description": "Fetches all available currencies.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CurrencyDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "ffac81db-8b9f-4747-8a3e-526e1e9c9d68"
+            ]
+          },
+          {
+            "X-Api-Key": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/globals/institutions": {
+      "get": {
+        "tags": [
+          "Globals"
+        ],
+        "summary": "Get All Institutions",
+        "description": "Fetches all available institutions.",
+        "parameters": [
+          {
+            "name": "fetchCharacteristics",
+            "in": "query",
+            "description": "Returns characteristics for all institutions.",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          },
+          {
+            "name": "fetchNomenclatures",
+            "in": "query",
+            "description": "Returns nomenclatures for all institutions.",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstitutionDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "ffac81db-8b9f-4747-8a3e-526e1e9c9d68"
+            ]
+          },
+          {
+            "X-Api-Key": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/globals/institutions/types": {
+      "get": {
+        "tags": [
+          "Globals"
+        ],
+        "summary": "Get All Institution Types",
+        "description": "Fetches all available institution types.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstitutionTypeDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "ffac81db-8b9f-4747-8a3e-526e1e9c9d68"
+            ]
+          },
+          {
+            "X-Api-Key": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/indexes": {
+      "get": {
+        "tags": [
+          "Indexes"
+        ],
+        "summary": "Get All Indexes",
+        "description": "Fetches all available indexes.",
+        "parameters": [
+          {
+            "name": "include-characteristics",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IndexDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "ffac81db-8b9f-4747-8a3e-526e1e9c9d68"
+            ]
+          },
+          {
+            "X-Api-Key": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/indexes/values": {
+      "get": {
+        "tags": [
+          "Indexes"
+        ],
+        "summary": "Get Index Values",
+        "description": "Fetches all index values.",
+        "parameters": [
+          {
+            "name": "session-date",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "from-date",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "to-date",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IndexValueDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "ffac81db-8b9f-4747-8a3e-526e1e9c9d68"
+            ]
+          },
+          {
+            "X-Api-Key": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/instrument-groups": {
+      "get": {
+        "tags": [
+          "Instruments"
+        ],
+        "summary": "Get All Instrument Groups",
+        "description": "Fetches all available instrument groups.",
+        "parameters": [
+          {
+            "name": "fetchCharacteristics",
+            "in": "query",
+            "description": "Fetches all characteristics for each instrument group.",
+            "schema": {
+              "type": "boolean",
+              "default": true
+            }
+          },
+          {
+            "name": "fetchNomenclatures",
+            "in": "query",
+            "description": "Fetches all nomenclatures for each instrument group.",
+            "schema": {
+              "type": "boolean",
+              "default": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstrumentGroupDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstrumentGroupDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstrumentGroupDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "ffac81db-8b9f-4747-8a3e-526e1e9c9d68"
+            ]
+          },
+          {
+            "X-Api-Key": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/instruments": {
+      "get": {
+        "tags": [
+          "Instruments"
+        ],
+        "summary": "Get All Instruments",
+        "description": "Fetches all available instruments.",
+        "parameters": [
+          {
+            "name": "enabled-only",
+            "in": "query",
+            "description": "Returns only instruments that are currently enabled.",
+            "schema": {
+              "type": "boolean",
+              "default": true
+            }
+          },
+          {
+            "name": "fetch-characteristics",
+            "in": "query",
+            "description": "Fetches all characteristics for each instrument.",
+            "schema": {
+              "type": "boolean",
+              "default": true
+            }
+          },
+          {
+            "name": "fetch-baskets",
+            "in": "query",
+            "description": "Fetches all baskets associated with the instruments. Default false.",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          },
+          {
+            "name": "fetch-issuers",
+            "in": "query",
+            "description": "Fetches all issuers associated with the instruments. Default false.",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          },
+          {
+            "name": "fetch-cash-flows",
+            "in": "query",
+            "description": "Fetches all cash flows associated with the instruments. Default false.",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          },
+          {
+            "name": "fetch-nomenclatures",
+            "in": "query",
+            "description": "Fetches all nomenclatures associated with the instruments. Default false.",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstrumentDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstrumentDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstrumentDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "ffac81db-8b9f-4747-8a3e-526e1e9c9d68"
+            ]
+          },
+          {
+            "X-Api-Key": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/instruments/parameters": {
+      "get": {
+        "tags": [
+          "Instruments"
+        ],
+        "summary": "Get All Instrument Parameters",
+        "description": "Fetches all available instrument parameters used in characteristics, including those applied to instrument groups.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstrumentParameterDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstrumentParameterDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstrumentParameterDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "ffac81db-8b9f-4747-8a3e-526e1e9c9d68"
+            ]
+          },
+          {
+            "X-Api-Key": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/instruments/events": {
+      "get": {
+        "tags": [
+          "Instruments"
+        ],
+        "summary": "Get Instrument Events",
+        "description": "Fetches all instrument events by date.",
+        "parameters": [
+          {
+            "name": "event-date",
+            "in": "query",
+            "description": "Reference date to get instruments events by.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstrumentEventDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstrumentEventDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstrumentEventDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "ffac81db-8b9f-4747-8a3e-526e1e9c9d68"
+            ]
+          },
+          {
+            "X-Api-Key": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/intraday-prices": {
+      "get": {
+        "tags": [
+          "Prices"
+        ],
+        "summary": "Get Intraday Instrument Prices",
+        "description": "Fetches all current instrument prices.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/IntradayPriceDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IntradayPriceDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IntradayPriceDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "ffac81db-8b9f-4747-8a3e-526e1e9c9d68"
+            ]
+          },
+          {
+            "X-Api-Key": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/intraday-risk-factor-values": {
+      "get": {
+        "tags": [
+          "Risk Factors"
+        ],
+        "summary": "Get Intraday Risk Factor Values",
+        "description": "Fetches current risk factor values.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/IntradayRiskFactorValueDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IntradayRiskFactorValueDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IntradayRiskFactorValueDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "ffac81db-8b9f-4747-8a3e-526e1e9c9d68"
+            ]
+          },
+          {
+            "X-Api-Key": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/issuers": {
+      "get": {
+        "tags": [
+          "Issuers"
+        ],
+        "summary": "Get All Issuers",
+        "description": "Fetches all available issuers.",
+        "parameters": [
+          {
+            "name": "fetchCharacteristics",
+            "in": "query",
+            "description": "Returns characteristics for all issuers.",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IssuerDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "ffac81db-8b9f-4747-8a3e-526e1e9c9d68"
+            ]
+          },
+          {
+            "X-Api-Key": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/issuers/parameters": {
+      "get": {
+        "tags": [
+          "Issuers"
+        ],
+        "summary": "Get All Issuers Parameters",
+        "description": "Fetches all available issuer parameters.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IssuerDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "ffac81db-8b9f-4747-8a3e-526e1e9c9d68"
+            ]
+          },
+          {
+            "X-Api-Key": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/pnl/intraday": {
+      "get": {
+        "tags": [
+          "PnL"
+        ],
+        "summary": "Get Intraday PnL",
+        "description": "Fetches current intraday PnL.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IntradayPnlEntryDto"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IntradayPnlEntryDto"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IntradayPnlEntryDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "ffac81db-8b9f-4747-8a3e-526e1e9c9d68"
+            ]
+          },
+          {
+            "X-Api-Key": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/pnl/explain": {
+      "get": {
+        "tags": [
+          "PnL"
+        ],
+        "summary": "Get PnL Explain Data",
+        "description": "Retrieves detailed PnL explain entries for a specified date range, fund family, and set of discriminators.",
+        "parameters": [
+          {
+            "name": "start-date",
+            "in": "query",
+            "description": "The inclusive start date for the PnL explain data range.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "end-date",
+            "in": "query",
+            "description": "The inclusive end date for the PnL explain data range.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "fund-family",
+            "in": "query",
+            "description": "The fund family identifier to filter the PnL explain data.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "discriminator",
+            "in": "query",
+            "description": "A list of property names to group or filter the PnL explain data by. At least one property name is required.",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "ffac81db-8b9f-4747-8a3e-526e1e9c9d68"
+            ]
+          },
+          {
+            "X-Api-Key": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/portfolios": {
+      "get": {
+        "tags": [
+          "Portfolios"
+        ],
+        "summary": "Get All Portfolios",
+        "description": "Fetches all available portfolios.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "ffac81db-8b9f-4747-8a3e-526e1e9c9d68"
+            ]
+          },
+          {
+            "X-Api-Key": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/positions": {
+      "get": {
+        "tags": [
+          "Positions"
+        ],
+        "summary": "Get Position",
+        "description": "Fetches all position entries a given date.",
+        "parameters": [
+          {
+            "name": "positionDate",
+            "in": "query",
+            "description": "The position date. If not provided, evaluates to today.",
+            "schema": {
+              "type": "string",
+              "format": "date",
+              "default": null
+            }
+          },
+          {
+            "name": "isOpen",
+            "in": "query",
+            "description": "If true, fetches open position for a given date. Otherwise, returns close position.",
+            "schema": {
+              "type": "boolean",
+              "default": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "ffac81db-8b9f-4747-8a3e-526e1e9c9d68"
+            ]
+          },
+          {
+            "X-Api-Key": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/price-models": {
+      "get": {
+        "tags": [
+          "Price Models"
+        ],
+        "summary": "Get Price Models",
+        "description": "Fetches all price models.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PriceModelDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PriceModelDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PriceModelDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "ffac81db-8b9f-4747-8a3e-526e1e9c9d68"
+            ]
+          },
+          {
+            "X-Api-Key": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/price-models/instruments": {
+      "get": {
+        "tags": [
+          "Price Models"
+        ],
+        "summary": "Get Instrument Price Models",
+        "description": "Fetches all instrument price models.",
+        "parameters": [
+          {
+            "name": "include-action-risk-factors",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstrumentPriceModelDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstrumentPriceModelDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstrumentPriceModelDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "ffac81db-8b9f-4747-8a3e-526e1e9c9d68"
+            ]
+          },
+          {
+            "X-Api-Key": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/price-models/instrument-groups": {
+      "get": {
+        "tags": [
+          "Price Models"
+        ],
+        "summary": "Get Instrument Group Price Models",
+        "description": "Fetches all instrument group price models.",
+        "parameters": [
+          {
+            "name": "include-action-risk-factors",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstrumentGroupPriceModelDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstrumentGroupPriceModelDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstrumentGroupPriceModelDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "ffac81db-8b9f-4747-8a3e-526e1e9c9d68"
+            ]
+          },
+          {
+            "X-Api-Key": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/prices": {
+      "get": {
+        "tags": [
+          "Prices"
+        ],
+        "summary": "Get All Prices",
+        "description": "Fetches all prices for a given date.",
+        "parameters": [
+          {
+            "name": "priceDate",
+            "in": "query",
+            "description": "The price date.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "priceTypeName",
+            "in": "query",
+            "description": "The price type.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PriceDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PriceDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PriceDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "ffac81db-8b9f-4747-8a3e-526e1e9c9d68"
+            ]
+          },
+          {
+            "X-Api-Key": [ ]
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Prices"
+        ],
+        "summary": "Publish Instrument Prices",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/OverrideInstrumentPriceRequest"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/OverrideInstrumentPriceRequest"
+                }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/OverrideInstrumentPriceRequest"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "ffac81db-8b9f-4747-8a3e-526e1e9c9d68"
+            ]
+          },
+          {
+            "X-Api-Key": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/prices/{instrumentId}": {
+      "get": {
+        "tags": [
+          "Prices"
+        ],
+        "summary": "Get Instrument Prices",
+        "description": "Fetches all prices for a given date and a given instrument.",
+        "parameters": [
+          {
+            "name": "instrumentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "priceDate",
+            "in": "query",
+            "description": "The price date.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "priceTypeName",
+            "in": "query",
+            "description": "The price type.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PriceDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PriceDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PriceDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "ffac81db-8b9f-4747-8a3e-526e1e9c9d68"
+            ]
+          },
+          {
+            "X-Api-Key": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/prices/price-types": {
+      "get": {
+        "tags": [
+          "Prices"
+        ],
+        "summary": "Get All Price Types",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PriceTypeDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PriceTypeDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PriceTypeDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "ffac81db-8b9f-4747-8a3e-526e1e9c9d68"
+            ]
+          },
+          {
+            "X-Api-Key": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/risk-factors": {
+      "get": {
+        "tags": [
+          "Risk Factors"
+        ],
+        "summary": "Get All Risk Factors",
+        "description": "Fetches all risk factors.",
+        "parameters": [
+          {
+            "name": "include-characteristics",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/RiskFactorDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RiskFactorDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RiskFactorDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "ffac81db-8b9f-4747-8a3e-526e1e9c9d68"
+            ]
+          },
+          {
+            "X-Api-Key": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/risk-factors/parameters": {
+      "get": {
+        "tags": [
+          "Risk Factors"
+        ],
+        "summary": "Get Risk Factor Parameters",
+        "description": "Fetches all risk factor parameters.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/RiskFactorParameterDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RiskFactorParameterDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RiskFactorParameterDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "ffac81db-8b9f-4747-8a3e-526e1e9c9d68"
+            ]
+          },
+          {
+            "X-Api-Key": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/risk-factor-values": {
+      "get": {
+        "tags": [
+          "Risk Factors"
+        ],
+        "summary": "Get All Risk Factor Values",
+        "description": "Fetches all risk factor values for a given date.",
+        "parameters": [
+          {
+            "name": "valuation-date",
+            "in": "query",
+            "description": "The target valuation date.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/RiskFactorValueDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RiskFactorValueDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RiskFactorValueDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "ffac81db-8b9f-4747-8a3e-526e1e9c9d68"
+            ]
+          },
+          {
+            "X-Api-Key": [ ]
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Risk Factors"
+        ],
+        "summary": "Publish Risk Factor Value",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/OverrideRiskFactorValueRequest"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/OverrideRiskFactorValueRequest"
+                }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/OverrideRiskFactorValueRequest"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "ffac81db-8b9f-4747-8a3e-526e1e9c9d68"
+            ]
+          },
+          {
+            "X-Api-Key": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/risk-factor-values/types": {
+      "get": {
+        "tags": [
+          "Risk Factors"
+        ],
+        "summary": "Get All Risk Factor Value Types",
+        "description": "Fetches all risk factor values types.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/RiskValueTypeDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RiskValueTypeDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RiskValueTypeDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "ffac81db-8b9f-4747-8a3e-526e1e9c9d68"
+            ]
+          },
+          {
+            "X-Api-Key": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/subclasses": {
+      "get": {
+        "tags": [
+          "Subclasses"
+        ],
+        "summary": "Get All Subclasses",
+        "description": "Fetches all available subclasses.",
+        "parameters": [
+          {
+            "name": "include-characteristics",
+            "in": "query",
+            "description": "Fetches all characteristics for each fund.",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          },
+          {
+            "name": "enabled-only",
+            "in": "query",
+            "description": "Returns only subclasses that are currently enabled.",
+            "schema": {
+              "type": "boolean",
+              "default": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubclassDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubclassDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubclassDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "ffac81db-8b9f-4747-8a3e-526e1e9c9d68"
+            ]
+          },
+          {
+            "X-Api-Key": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/subclasses/navs": {
+      "get": {
+        "tags": [
+          "Subclasses"
+        ],
+        "summary": "Get Subclass NAVs",
+        "description": "Fetches the NAVs for all subclasses given a date range or a specific date.",
+        "parameters": [
+          {
+            "name": "date",
+            "in": "query",
+            "description": "A specific date. Use either this or the range parameters.",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "start-date",
+            "in": "query",
+            "description": "The start date of the range.",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "end-date",
+            "in": "query",
+            "description": "The end date of the range.",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubclassNavDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubclassNavDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubclassNavDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "ffac81db-8b9f-4747-8a3e-526e1e9c9d68"
+            ]
+          },
+          {
+            "X-Api-Key": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/trades": {
+      "get": {
+        "tags": [
+          "Trades"
+        ],
+        "summary": "Get All Trades",
+        "description": "Fetches all trades for a given date.",
+        "parameters": [
+          {
+            "name": "effectiveDate",
+            "in": "query",
+            "description": "The effective date. If not provided, evaluates to today.",
+            "schema": {
+              "type": "string",
+              "format": "date",
+              "default": null
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/TradeDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TradeDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TradeDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "ffac81db-8b9f-4747-8a3e-526e1e9c9d68"
+            ]
+          },
+          {
+            "X-Api-Key": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/trades/fees": {
+      "get": {
+        "tags": [
+          "Trades"
+        ],
+        "summary": "Get Trade Fees",
+        "description": "Fetches all trade fees for a given date.",
+        "parameters": [
+          {
+            "name": "effective-date",
+            "in": "query",
+            "description": "The effective date.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date",
+              "default": null
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/TradeFeeDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TradeFeeDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TradeFeeDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "ffac81db-8b9f-4747-8a3e-526e1e9c9d68"
+            ]
+          },
+          {
+            "X-Api-Key": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/trades/internals": {
+      "get": {
+        "tags": [
+          "Trades"
+        ],
+        "summary": "Get Internal Trades",
+        "description": "Fetches all internal trades for a given date.",
+        "parameters": [
+          {
+            "name": "effective-date",
+            "in": "query",
+            "description": "The effective date.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date",
+              "default": null
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/TradeFeeDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TradeFeeDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TradeFeeDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "ffac81db-8b9f-4747-8a3e-526e1e9c9d68"
+            ]
+          },
+          {
+            "X-Api-Key": [ ]
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CalendarDto": {
+        "required": [
+          "name",
+          "description",
+          "holidays"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "holidays": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "date"
+            }
+          }
+        }
+      },
+      "CountryDto": {
+        "required": [
+          "name",
+          "twoLetterCode",
+          "threeLetterCode"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string"
+          },
+          "twoLetterCode": {
+            "type": "string"
+          },
+          "threeLetterCode": {
+            "type": "string"
+          },
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "CurrencyDto": {
+        "required": [
+          "name",
+          "threeLetterCode"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string"
+          },
+          "threeLetterCode": {
+            "type": "string"
+          },
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "priority": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "FundAdministratorDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "nullable": true
+      },
+      "FundCounterpartyMarginDto": {
+        "required": [
+          "sessionDate",
+          "notificationDate",
+          "coveringDate",
+          "fundName",
+          "counterpartyName",
+          "marginTypeName",
+          "currencyCode"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "sessionDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "notificationDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "coveringDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "fundId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fundName": {
+            "type": "string"
+          },
+          "counterpartyId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "counterpartyName": {
+            "type": "string"
+          },
+          "marginTypeId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "marginTypeName": {
+            "type": "string"
+          },
+          "currencyId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "currencyCode": {
+            "type": "string"
+          },
+          "totalRequiredMargin": {
+            "type": "number",
+            "format": "double"
+          }
+        }
+      },
+      "FundDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "shortName": {
+            "type": "string"
+          },
+          "fullName": {
+            "type": "string"
+          },
+          "cotaAbertura": {
+            "type": "boolean"
+          },
+          "isEnabled": {
+            "type": "boolean"
+          },
+          "characteristics": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "administrator": {
+            "$ref": "#/components/schemas/FundAdministratorDto"
+          }
+        }
+      },
+      "FundFamilyDto": {
+        "required": [
+          "name",
+          "description",
+          "baseCurrencyCode",
+          "riskViewCurrencyCode"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "baseCurrencyId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "baseCurrencyCode": {
+            "type": "string"
+          },
+          "riskViewCurrencyId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "riskViewCurrencyCode": {
+            "type": "string"
+          }
+        }
+      },
+      "FundFamilyRelationDto": {
+        "required": [
+          "fundFamilyName",
+          "fundName"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fundFamilyId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fundFamilyName": {
+            "type": "string"
+          },
+          "fundId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fundName": {
+            "type": "string"
+          },
+          "navMultiplier": {
+            "type": "number",
+            "format": "double"
+          },
+          "riskMultiplier": {
+            "type": "number",
+            "format": "double"
+          }
+        }
+      },
+      "FundNavDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "navTypeId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "navType": {
+            "type": "string"
+          },
+          "fundId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fundName": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string",
+            "format": "date"
+          },
+          "sourceId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "sourceName": {
+            "type": "string",
+            "nullable": true
+          },
+          "statusId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "statusName": {
+            "type": "string",
+            "nullable": true
+          },
+          "value": {
+            "type": "number",
+            "format": "double"
+          }
+        }
+      },
+      "FundRiskMeasureDto": {
+        "required": [
+          "fundName",
+          "portfolioName",
+          "riskMetricName"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "effectiveDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "fundId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fundName": {
+            "type": "string"
+          },
+          "portfolioId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "portfolioName": {
+            "type": "string"
+          },
+          "riskMetricId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "riskMetricName": {
+            "type": "string"
+          },
+          "measureValue": {
+            "type": "number",
+            "format": "double"
+          }
+        }
+      },
+      "IndexDto": {
+        "required": [
+          "name",
+          "description",
+          "type",
+          "currency"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "currencyId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "characteristics": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "nullable": true
+          }
+        }
+      },
+      "IndexValueDto": {
+        "required": [
+          "indexName"
+        ],
+        "type": "object",
+        "properties": {
+          "indexName": {
+            "type": "string"
+          },
+          "sessionDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "value": {
+            "type": "number",
+            "format": "double"
+          }
+        }
+      },
+      "InstitutionDto": {
+        "required": [
+          "name",
+          "fullName",
+          "typeName"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string"
+          },
+          "fullName": {
+            "type": "string"
+          },
+          "typeId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "typeName": {
+            "type": "string"
+          },
+          "characteristics": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "nullable": true
+          }
+        }
+      },
+      "InstitutionTypeDto": {
+        "required": [
+          "name",
+          "description"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      },
+      "InstrumentBasketUnderlyingDto": {
+        "required": [
+          "underlyingInstrumentGroup",
+          "underlyingInstrument",
+          "observation"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "underlyingId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "underlyingInstrumentGroup": {
+            "type": "string"
+          },
+          "underlyingInstrument": {
+            "type": "string"
+          },
+          "entryDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "settlementDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "quantity": {
+            "type": "number",
+            "format": "double"
+          },
+          "price": {
+            "type": "number",
+            "format": "double"
+          },
+          "tradeFee": {
+            "type": "number",
+            "format": "double"
+          },
+          "fundingSpread": {
+            "type": "number",
+            "format": "double"
+          },
+          "observation": {
+            "type": "string"
+          }
+        }
+      },
+      "InstrumentCashFlowDto": {
+        "required": [
+          "cashFlowType"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "cashFlowTypeId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "cashFlowType": {
+            "type": "string"
+          },
+          "fixingDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "endAccrualDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "settleDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "fixingPmtFactor": {
+            "type": "number",
+            "format": "double"
+          }
+        }
+      },
+      "InstrumentDto": {
+        "required": [
+          "name",
+          "groupName"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string"
+          },
+          "groupId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "groupName": {
+            "type": "string"
+          },
+          "characteristics": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "enabled": {
+            "type": "boolean"
+          },
+          "issuers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/InstrumentIssuerDto"
+            },
+            "nullable": true
+          },
+          "baskets": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/InstrumentBasketUnderlyingDto"
+            },
+            "nullable": true
+          },
+          "cashFlows": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/InstrumentCashFlowDto"
+            },
+            "nullable": true
+          },
+          "nomenclatures": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/InstrumentNomenclatureDto"
+            },
+            "nullable": true
+          }
+        }
+      },
+      "InstrumentEventDto": { },
+      "InstrumentGroupDto": {
+        "required": [
+          "name",
+          "description"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "characteristics": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "nomenclatures": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/InstrumentNomenclatureDto"
+            },
+            "nullable": true
+          }
+        }
+      },
+      "InstrumentGroupPriceModelDto": {
+        "required": [
+          "instrumentGroupName",
+          "priceModelName",
+          "groupingName"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "instrumentGroupId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "instrumentGroupName": {
+            "type": "string"
+          },
+          "priceModelId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "priceModelName": {
+            "type": "string"
+          },
+          "groupingId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "groupingName": {
+            "type": "string"
+          },
+          "actionRiskFactors": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "nullable": true
+          }
+        }
+      },
+      "InstrumentIssuerDto": {
+        "required": [
+          "name",
+          "description",
+          "tinNumber",
+          "country"
+        ],
+        "type": "object",
+        "properties": {
+          "issuerId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "tinNumber": {
+            "type": "string"
+          },
+          "countryId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "country": {
+            "type": "string"
+          },
+          "characteristics": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "nullable": true
+          }
+        }
+      },
+      "InstrumentNomenclatureDto": {
+        "required": [
+          "counterparty",
+          "application",
+          "namingParameter",
+          "definition"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "counterparty": {
+            "type": "string"
+          },
+          "application": {
+            "type": "string"
+          },
+          "namingParameter": {
+            "type": "string"
+          },
+          "definition": {
+            "type": "string"
+          }
+        }
+      },
+      "InstrumentParameterDto": {
+        "required": [
+          "name",
+          "description"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      },
+      "InstrumentPriceModelDto": {
+        "required": [
+          "instrumentName",
+          "instrumentGroupName",
+          "priceModelName",
+          "groupingName"
+        ],
+        "type": "object",
+        "properties": {
+          "instrumentId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "instrumentName": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "instrumentGroupId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "instrumentGroupName": {
+            "type": "string"
+          },
+          "priceModelId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "priceModelName": {
+            "type": "string"
+          },
+          "groupingId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "groupingName": {
+            "type": "string"
+          },
+          "actionRiskFactors": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "nullable": true
+          }
+        }
+      },
+      "IntradayPnlEntryDto": {
+        "required": [
+          "riskFactorMain",
+          "riskFactorSecondary",
+          "riskFactorFixing",
+          "riskFactorCashMain",
+          "riskFactorCashSecondary"
+        ],
+        "type": "object",
+        "properties": {
+          "pnl": {
+            "type": "number",
+            "format": "double"
+          },
+          "pnlTrade": {
+            "type": "number",
+            "format": "double"
+          },
+          "pnlPosition": {
+            "type": "number",
+            "format": "double"
+          },
+          "pnlInstrumentCurrency": {
+            "type": "number",
+            "format": "double"
+          },
+          "pnlFx": {
+            "type": "number",
+            "format": "double"
+          },
+          "pnlCarryCalc": {
+            "type": "number",
+            "format": "double"
+          },
+          "pnlCarryEffect": {
+            "type": "number",
+            "format": "double"
+          },
+          "pnlMainRiskFactor": {
+            "type": "number",
+            "format": "double"
+          },
+          "openPrice": {
+            "type": "number",
+            "format": "double"
+          },
+          "lastPrice": {
+            "type": "number",
+            "format": "double"
+          },
+          "openPriceMainRiskFactor": {
+            "type": "number",
+            "format": "double"
+          },
+          "lastPriceMainRiskFactor": {
+            "type": "number",
+            "format": "double"
+          },
+          "openNotional": {
+            "type": "number",
+            "format": "double"
+          },
+          "closeNotional": {
+            "type": "number",
+            "format": "double"
+          },
+          "closeNotionalPosition": {
+            "type": "number",
+            "format": "double"
+          },
+          "closeNotionalTrade": {
+            "type": "number",
+            "format": "double"
+          },
+          "closeNotionalBaseCurrency": {
+            "type": "number",
+            "format": "double"
+          },
+          "closeNotionalMainRiskFactor": {
+            "type": "number",
+            "format": "double"
+          },
+          "closeNotionalFundCurrency": {
+            "type": "number",
+            "format": "double"
+          },
+          "tradeLongQuantity": {
+            "type": "number",
+            "format": "double"
+          },
+          "tradeShortQuantity": {
+            "type": "number",
+            "format": "double"
+          },
+          "openQuantity": {
+            "type": "number",
+            "format": "double"
+          },
+          "closeQuantity": {
+            "type": "number",
+            "format": "double"
+          },
+          "tradeLongNotional": {
+            "type": "number",
+            "format": "double"
+          },
+          "tradeShortNotional": {
+            "type": "number",
+            "format": "double"
+          },
+          "riskFactorMain": {
+            "type": "string"
+          },
+          "riskFactorSecondary": {
+            "type": "string"
+          },
+          "riskFactorFixing": {
+            "type": "string"
+          },
+          "riskFactorCashMain": {
+            "type": "string"
+          },
+          "riskFactorCashSecondary": {
+            "type": "string"
+          },
+          "deltaBs": {
+            "type": "number",
+            "format": "double"
+          },
+          "gammaBs": {
+            "type": "number",
+            "format": "double"
+          },
+          "deltaSmile": {
+            "type": "number",
+            "format": "double"
+          },
+          "gammaSmile": {
+            "type": "number",
+            "format": "double"
+          },
+          "deltaCashMain": {
+            "type": "number",
+            "format": "double"
+          },
+          "deltaCashSecondary": {
+            "type": "number",
+            "format": "double"
+          },
+          "deltaSecBs": {
+            "type": "number",
+            "format": "double"
+          },
+          "gammaSecBs": {
+            "type": "number",
+            "format": "double"
+          },
+          "deltaSecSmile": {
+            "type": "number",
+            "format": "double"
+          },
+          "gammaSecSmile": {
+            "type": "number",
+            "format": "double"
+          },
+          "theta": {
+            "type": "number",
+            "format": "double"
+          },
+          "vega": {
+            "type": "number",
+            "format": "double"
+          },
+          "fixingDelta": {
+            "type": "number",
+            "format": "double"
+          },
+          "settleDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "cashSettleDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "portfolioName": {
+            "type": "string"
+          },
+          "fundName": {
+            "type": "string"
+          },
+          "baseFundName": {
+            "type": "string"
+          },
+          "tagName": {
+            "type": "string"
+          },
+          "instrumentGroupName": {
+            "type": "string"
+          },
+          "instrumentName": {
+            "type": "string"
+          },
+          "custodianName": {
+            "type": "string"
+          },
+          "mesaName": {
+            "type": "string"
+          },
+          "problemMessage": {
+            "type": "string"
+          },
+          "fxClose": {
+            "type": "number",
+            "format": "double"
+          }
+        }
+      },
+      "IntradayPriceDto": { },
+      "IntradayRiskFactorValueDto": { },
+      "IssuerDto": {
+        "required": [
+          "name",
+          "description",
+          "tinNumber",
+          "issuerCountryName",
+          "parentIssuerName"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "tinNumber": {
+            "type": "string"
+          },
+          "countryId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "issuerCountryId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "countryName": {
+            "type": "string"
+          },
+          "issuerCountryName": {
+            "type": "string"
+          },
+          "parentIssuerId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "parentIssuerName": {
+            "type": "string"
+          },
+          "characteristics": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "nullable": true
+          }
+        }
+      },
+      "OverrideInstrumentPriceRequest": {
+        "required": [
+          "instrumentId",
+          "price",
+          "rate"
+        ],
+        "type": "object",
+        "properties": {
+          "instrumentId": {
+            "type": "integer",
+            "description": "The instrument ID to override the price for.",
+            "format": "int32"
+          },
+          "price": {
+            "type": "number",
+            "description": "The new price.",
+            "format": "double"
+          },
+          "rate": {
+            "type": "number",
+            "description": "The new rate.",
+            "format": "double"
+          }
+        }
+      },
+      "OverrideRiskFactorValueRequest": {
+        "required": [
+          "riskFactor",
+          "riskFactorPoint"
+        ],
+        "type": "object",
+        "properties": {
+          "riskFactor": {
+            "type": "string",
+            "description": "The name of the risk factor to be overridden."
+          },
+          "riskFactorPoint": {
+            "$ref": "#/components/schemas/RiskFactorPoint"
+          }
+        }
+      },
+      "PortfolioDto": {
+        "required": [
+          "name",
+          "description"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "parentPortfolioId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "characteristics": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "nullable": true
+          }
+        }
+      },
+      "PositionDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "isOpen": {
+            "type": "boolean"
+          },
+          "positionDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "settleDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "fundId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fundName": {
+            "type": "string"
+          },
+          "portfolioId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "portfolioName": {
+            "type": "string"
+          },
+          "instrumentGroupId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "instrumentGroupName": {
+            "type": "string"
+          },
+          "instrumentId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "instrumentName": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "number",
+            "format": "double"
+          },
+          "custodianId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "custodianName": {
+            "type": "string"
+          },
+          "tagId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "tagName": {
+            "type": "string"
+          }
+        }
+      },
+      "PriceDto": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date"
+          },
+          "typeId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "typeName": {
+            "type": "string"
+          },
+          "sourceId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "sourceName": {
+            "type": "string"
+          },
+          "instrumentGroupId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "instrumentGroupName": {
+            "type": "string"
+          },
+          "instrumentId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "instrumentName": {
+            "type": "string"
+          },
+          "price": {
+            "type": "number",
+            "format": "double"
+          }
+        }
+      },
+      "PriceModelDto": {
+        "required": [
+          "name",
+          "description"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "riskFactorsCount": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "PriceTypeDto": {
+        "required": [
+          "name",
+          "description",
+          "priceOwner"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "priceOwner": {
+            "type": "string"
+          }
+        }
+      },
+      "RiskFactorDto": {
+        "required": [
+          "name",
+          "description",
+          "riskFactorTypeName"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "riskFactorTypeId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "riskFactorTypeName": {
+            "type": "string"
+          },
+          "numberOfDimensions": {
+            "type": "number",
+            "format": "double"
+          },
+          "characteristics": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "nullable": true
+          }
+        }
+      },
+      "RiskFactorParameterDto": {
+        "required": [
+          "name",
+          "description",
+          "parameterType"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "parameterType": {
+            "type": "string"
+          }
+        }
+      },
+      "RiskFactorPoint": {
+        "type": "object",
+        "properties": {
+          "riskFactorValue": {
+            "type": "number",
+            "format": "double"
+          },
+          "dimensionOne": {
+            "type": "number",
+            "format": "double"
+          },
+          "dimensionTwo": {
+            "type": "number",
+            "format": "double"
+          },
+          "dimensionThree": {
+            "type": "number",
+            "format": "double"
+          },
+          "dimensionFour": {
+            "type": "number",
+            "format": "double"
+          },
+          "dimensionFive": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "description": "The points to override with."
+      },
+      "RiskFactorValueDto": {
+        "required": [
+          "riskFactorName",
+          "riskValueTypeName"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "valuationDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "riskFactorId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "riskFactorName": {
+            "type": "string"
+          },
+          "riskValueTypeId": {
+            "$ref": "#/components/schemas/RiskValueType"
+          },
+          "riskValueTypeName": {
+            "type": "string"
+          },
+          "dimensionOneValue": {
+            "type": "number",
+            "format": "double"
+          },
+          "dimensionTwoValue": {
+            "type": "number",
+            "format": "double"
+          },
+          "dimensionThreeValue": {
+            "type": "number",
+            "format": "double"
+          },
+          "dimensionFourValue": {
+            "type": "number",
+            "format": "double"
+          },
+          "dimensionFiveValue": {
+            "type": "number",
+            "format": "double"
+          },
+          "value": {
+            "type": "number",
+            "format": "double"
+          }
+        }
+      },
+      "RiskValueType": {
+        "type": "integer"
+      },
+      "RiskValueTypeDto": {
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "SubclassDto": {
+        "required": [
+          "name",
+          "fullName",
+          "fundClassName",
+          "transferAgentName"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string"
+          },
+          "fullName": {
+            "type": "string"
+          },
+          "fundClassId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fundClassName": {
+            "type": "string"
+          },
+          "transferAgentId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "transferAgentName": {
+            "type": "string"
+          },
+          "isEnabled": {
+            "type": "boolean"
+          },
+          "characteristics": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "nullable": true
+          }
+        }
+      },
+      "SubclassNavDto": {
+        "required": [
+          "subclassNavTypeName",
+          "subclassName"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "date": {
+            "type": "string",
+            "format": "date"
+          },
+          "subclassNavTypeId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "subclassNavTypeName": {
+            "type": "string"
+          },
+          "subclassId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "subclassName": {
+            "type": "string"
+          },
+          "sourceId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "sourceName": {
+            "type": "string",
+            "nullable": true
+          },
+          "statusId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "statusName": {
+            "type": "string",
+            "nullable": true
+          },
+          "value": {
+            "type": "number",
+            "format": "double"
+          }
+        }
+      },
+      "TradeDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "tradeRawId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "tradeDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "tradeTime": {
+            "type": "string",
+            "format": "time"
+          },
+          "effectiveDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "settlementDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "fundId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fundName": {
+            "type": "string"
+          },
+          "accountId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "accountName": {
+            "type": "string"
+          },
+          "portfolioId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "portfolioName": {
+            "type": "string"
+          },
+          "instrumentGroupId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "instrumentGroupName": {
+            "type": "string"
+          },
+          "instrumentId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "instrumentName": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "number",
+            "format": "double"
+          },
+          "price": {
+            "type": "number",
+            "format": "double"
+          },
+          "traderId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "traderName": {
+            "type": "string"
+          },
+          "dealerId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "dealerName": {
+            "type": "string"
+          },
+          "settleDealerId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "settleDealerName": {
+            "type": "string"
+          },
+          "tagId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "tagName": {
+            "type": "string"
+          },
+          "tradeStateId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "tradeStateName": {
+            "type": "string"
+          },
+          "tradeSourceId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "tradeSourceName": {
+            "type": "string"
+          },
+          "observation": {
+            "type": "string"
+          }
+        }
+      },
+      "TradeFeeDto": {
+        "required": [
+          "observation"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "effectiveDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "tradeId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "executionFee": {
+            "type": "number",
+            "format": "double"
+          },
+          "clearingFee": {
+            "type": "number",
+            "format": "double"
+          },
+          "exchangeFee": {
+            "type": "number",
+            "format": "double"
+          },
+          "registerFee": {
+            "type": "number",
+            "format": "double"
+          },
+          "nonPnlFee": {
+            "type": "number",
+            "format": "double"
+          },
+          "observation": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "oauth2": {
+        "type": "oauth2",
+        "flows": {
+          "authorizationCode": {
+            "authorizationUrl": "https://login.microsoftonline.com/497a1564-7d5b-48d3-a55e-791eaeef5819/oauth2/v2.0/authorize",
+            "tokenUrl": "https://login.microsoftonline.com/497a1564-7d5b-48d3-a55e-791eaeef5819/oauth2/v2.0/token",
+            "scopes": {
+              "api://ffac81db-8b9f-4747-8a3e-526e1e9c9d68/access": "API",
+              "profile": "profile",
+              "email": "email",
+              "openid": "openid",
+              "offline_access": "offline access"
+            }
+          }
+        }
+      },
+      "X-Api-Key": {
+        "type": "apiKey",
+        "description": "API key for accessing the API",
+        "name": "X-Api-Key",
+        "in": "header"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Funds"
+    },
+    {
+      "name": "Fund Families"
+    },
+    {
+      "name": "Globals"
+    },
+    {
+      "name": "Indexes"
+    },
+    {
+      "name": "Instruments"
+    },
+    {
+      "name": "Prices"
+    },
+    {
+      "name": "Risk Factors"
+    },
+    {
+      "name": "Issuers"
+    },
+    {
+      "name": "PnL"
+    },
+    {
+      "name": "Portfolios"
+    },
+    {
+      "name": "Positions"
+    },
+    {
+      "name": "Price Models"
+    },
+    {
+      "name": "Subclasses"
+    },
+    {
+      "name": "Trades"
+    }
+  ]
+}

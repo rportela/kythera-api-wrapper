@@ -138,6 +138,7 @@ class InstrumentDto(BaseModel):
     groupName: str
     group: Optional['InstrumentGroupDto'] = Field(None)
     characteristics: Optional[Dict[str, str]] = Field(None)
+    enabled: Optional[bool] = Field(None)
     issuers: Optional[List[InstrumentIssuerDto]] = Field(None)
     baskets: Optional[List[InstrumentBasketUnderlyingDto]] = Field(None)
     cashFlows: Optional[List[InstrumentCashFlowDto]] = Field(None)
@@ -151,13 +152,32 @@ class InstrumentParameterDto(BaseModel):
 
 
 class IntradayPriceDto(BaseModel):
-    """Placeholder model for intraday prices - fields not defined in OpenAPI spec"""
-    pass
+    """Model for intraday prices - fields based on OpenAPI spec"""
+    date: Optional[DateType] = Field(None)
+    instrumentId: Optional[int] = Field(None)
+    instrumentName: Optional[str] = Field(None)
+    instrumentGroupId: Optional[int] = Field(None)
+    instrumentGroupName: Optional[str] = Field(None)
+    price: Optional[float] = Field(None)
+    bid: Optional[float] = Field(None)
+    ask: Optional[float] = Field(None)
+    last: Optional[float] = Field(None)
+    volume: Optional[float] = Field(None)
+    timestamp: Optional[str] = Field(None)
 
 
 class IntradayRiskFactorValueDto(BaseModel):
-    """Placeholder model for intraday risk factor values - fields not defined in OpenAPI spec"""
-    pass
+    """Model for intraday risk factor values - fields based on OpenAPI spec"""
+    riskFactorId: Optional[int] = Field(None)
+    riskFactorName: Optional[str] = Field(None)
+    valuationDate: Optional[DateType] = Field(None)
+    value: Optional[float] = Field(None)
+    dimensionOneValue: Optional[float] = Field(None)
+    dimensionTwoValue: Optional[float] = Field(None)
+    dimensionThreeValue: Optional[float] = Field(None)
+    dimensionFourValue: Optional[float] = Field(None)
+    dimensionFiveValue: Optional[float] = Field(None)
+    timestamp: Optional[str] = Field(None)
 
 
 class IntradayPnlEntryDto(BaseModel):
@@ -199,16 +219,11 @@ class IntradayPnlEntryDto(BaseModel):
     theta: Optional[float] = Field(None)
     vega: Optional[float] = Field(None)
     fixingDelta: Optional[float] = Field(None)
-    riskFactorMain: Optional[str] = Field(None)
-    riskFactorMainType: Optional[str] = Field(None)
-    riskFactorSecondary: Optional[str] = Field(None)
-    riskFactorSecondaryType: Optional[str] = Field(None)
-    riskFactorFixing: Optional[str] = Field(None)
-    riskFactorFixingType: Optional[str] = Field(None)
-    riskFactorCashMain: Optional[str] = Field(None)
-    riskFactorCashMainType: Optional[str] = Field(None)
-    riskFactorCashSecondary: Optional[str] = Field(None)
-    riskFactorCashSecondaryType: Optional[str] = Field(None)
+    riskFactorMain: str
+    riskFactorSecondary: str
+    riskFactorFixing: str
+    riskFactorCashMain: str
+    riskFactorCashSecondary: str
     settleDate: Optional[DateType] = Field(None)
     cashSettleDate: Optional[DateType] = Field(None)
     portfolioName: Optional[str] = Field(None)
@@ -333,7 +348,9 @@ class TradeDto(BaseModel):
 
 
 class OverrideInstrumentPriceRequest(BaseModel):
-    instrumentId: int = Field(..., description="The instrument ID to override the price for.")
+    instrumentId: int = Field(
+        ..., description="The instrument ID to override the price for."
+    )
     price: float = Field(..., description="The new price.")
     rate: float = Field(..., description="The new rate.")
 
@@ -349,10 +366,12 @@ class RiskFactorPoint(BaseModel):
 
 
 class OverrideRiskFactorValueRequest(BaseModel):
-    riskFactorId: Optional[int] = Field(None, description="The ID of the risk factor to be overridden. Use this or the risk factor name.")
-    riskFactor: Optional[str] = Field(None, description="The name of the risk factor to be overridden. Use this or the risk factor ID.")
-    riskFactorType: str = Field(..., description="The risk factor type name.")
-    riskFactorPoint: RiskFactorPoint = Field(..., description="The points to override with.")
+    riskFactor: str = Field(
+        ..., description="The name of the risk factor to be overridden."
+    )
+    riskFactorPoint: RiskFactorPoint = Field(
+        ..., description="The points to override with."
+    )
 
 
 class FundCounterpartyMarginDto(BaseModel):
@@ -428,9 +447,13 @@ class SubclassNavDto(BaseModel):
 class InstrumentEventDto(BaseModel):
     id: Optional[int] = Field(None)
     instrumentId: Optional[int] = Field(None)
+    instrumentName: Optional[str] = Field(None)
     eventType: Optional[str] = Field(None)
     eventDate: Optional[DateType] = Field(None)
     description: Optional[str] = Field(None)
+    amount: Optional[float] = Field(None)
+    currency: Optional[str] = Field(None)
+    rate: Optional[float] = Field(None)
 
 
 class PnlExplainDto(BaseModel):
