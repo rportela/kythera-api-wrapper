@@ -10,7 +10,6 @@ from typing import Optional, List
 from .authenticated_client import AuthenticatedClient
 from .addin import AddInClient
 from .funds import FundsClient
-from .fund_families import FundFamiliesClient
 from .globals import GlobalsClient
 from .instrument_groups import InstrumentGroupsClient
 from .instrument_parameters import InstrumentParametersClient
@@ -91,7 +90,6 @@ class KytheraKdx(AuthenticatedClient):
         # Initialize all client modules lazily
         self._addin_client: Optional[AddInClient] = None
         self._funds_client: Optional[FundsClient] = None
-        self._fund_families_client: Optional[FundFamiliesClient] = None
         self._globals_client: Optional[GlobalsClient] = None
         self._instrument_groups_client: Optional[InstrumentGroupsClient] = None
         self._instrument_parameters_client: Optional[InstrumentParametersClient] = None
@@ -121,13 +119,6 @@ class KytheraKdx(AuthenticatedClient):
         if self._funds_client is None:
             self._funds_client = FundsClient(self)
         return self._funds_client
-
-    @property
-    def fund_families(self) -> FundFamiliesClient:
-        """Access to Fund Families endpoints."""
-        if self._fund_families_client is None:
-            self._fund_families_client = FundFamiliesClient(self)
-        return self._fund_families_client
 
     @property
     def globals(self) -> GlobalsClient:
@@ -216,14 +207,14 @@ class KytheraKdx(AuthenticatedClient):
     @property
     def indexes(self) -> IndexesClient:
         """Access to Indexes endpoints."""
-        if self._indexes_client is None:
+        if not hasattr(self, '_indexes_client') or self._indexes_client is None:
             self._indexes_client = IndexesClient(self)
         return self._indexes_client
 
     @property
     def price_models(self) -> PriceModelsClient:
         """Access to Price Models endpoints."""
-        if self._price_models_client is None:
+        if not hasattr(self, '_price_models_client') or self._price_models_client is None:
             self._price_models_client = PriceModelsClient(self)
         return self._price_models_client
 

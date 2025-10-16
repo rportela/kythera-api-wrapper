@@ -1,10 +1,9 @@
 from typing import List, Dict, Any
-from datetime import date
 
 import pandas as pd
 
 from .authenticated_client import AuthenticatedClient
-from .models_v1 import IntradayPnlEntryDto
+from .models_v1 import IntradayPnlEntryDto, PnlExplainDto
 
 
 class PnlClient:
@@ -37,17 +36,10 @@ class PnlClient:
         data = self.get_intraday_pnl_raw()
         return pd.DataFrame(data)
 
-    def get_pnl_explain_raw(
-        self,
-        start_date: date,
-        end_date: date,
-        fund_family: str,
-        discriminators: List[str]
-    ) -> List[Dict[str, Any]]:
+    def get_pnl_explain_raw(self, start_date, end_date, fund_family: str, discriminators: List[str]) -> List[Dict[str, Any]]:
         """
         GET /v1/pnl/explain
-        Retrieves PnL explain entries for the given range,
-        fund family and discriminators (raw JSON).
+        Retrieves PnL explain entries for the given range, fund family and discriminators (raw JSON).
         """
         params = {
             "start-date": start_date.isoformat(),
@@ -61,36 +53,18 @@ class PnlClient:
         response = self._client.get("/v1/pnl/explain", params=params)
         return response.json()
 
-    def get_pnl_explain(
-        self,
-        start_date: date,
-        end_date: date,
-        fund_family: str,
-        discriminators: List[str]
-    ) -> List[Dict[str, Any]]:
+    def get_pnl_explain(self, start_date, end_date, fund_family: str, discriminators: List[str]) -> List[PnlExplainDto]:
         """
         GET /v1/pnl/explain
-        Retrieves PnL explain entries for the given range,
-        fund family and discriminators (typed models).
+        Retrieves PnL explain entries for the given range, fund family and discriminators (typed models).
         """
-        data = self.get_pnl_explain_raw(
-            start_date, end_date, fund_family, discriminators
-        )
-        return data  # Return raw data since schema is not fully defined
+        data = self.get_pnl_explain_raw(start_date, end_date, fund_family, discriminators)
+        return [PnlExplainDto(**item) for item in data]
 
-    def get_pnl_explain_df(
-        self,
-        start_date: date,
-        end_date: date,
-        fund_family: str,
-        discriminators: List[str]
-    ) -> pd.DataFrame:
+    def get_pnl_explain_df(self, start_date, end_date, fund_family: str, discriminators: List[str]) -> pd.DataFrame:
         """
         GET /v1/pnl/explain
-        Retrieves PnL explain entries for the given range,
-        fund family and discriminators (DataFrame).
+        Retrieves PnL explain entries for the given range, fund family and discriminators (DataFrame).
         """
-        data = self.get_pnl_explain_raw(
-            start_date, end_date, fund_family, discriminators
-        )
+        data = self.get_pnl_explain_raw(start_date, end_date, fund_family, discriminators)
         return pd.DataFrame(data)

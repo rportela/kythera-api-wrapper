@@ -13,7 +13,6 @@ from .kythera_kdx import KytheraKdx
 from .exceptions import KytheraError, KytheraAPIError, KytheraAuthError
 from .addin import AddInClient
 from .funds import FundsClient
-from .fund_families import FundFamiliesClient
 from .globals import GlobalsClient
 from .instrument_groups import InstrumentGroupsClient
 from .instrument_parameters import InstrumentParametersClient
@@ -26,9 +25,6 @@ from .positions import PositionsClient
 from .trades import TradesClient
 from .portfolios import PortfoliosClient
 from .issuers import IssuersClient
-from .subclasses import SubclassesClient
-from .indexes import IndexesClient
-from .price_models import PriceModelsClient
 
 __all__ = [
     "AuthenticatedClient",
@@ -37,7 +33,6 @@ __all__ = [
     "KytheraAuthError",
     "AddInClient",
     "FundsClient",
-    "FundFamiliesClient",
     "GlobalsClient",
     "InstrumentGroupsClient",
     "InstrumentParametersClient",
@@ -51,7 +46,4 @@ __all__ = [
     "KytheraKdx",
     "PortfoliosClient",
     "IssuersClient",
-    "SubclassesClient",
-    "IndexesClient",
-    "PriceModelsClient",
 ]
